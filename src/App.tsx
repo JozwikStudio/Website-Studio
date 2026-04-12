@@ -21,14 +21,14 @@ function App() {
     const sections = Array.from(document.querySelectorAll('main > section')) as HTMLElement[];
     let isScrolling = false;
     let touchStartY = 0;
+    let touchCurrentY = 0;
 
     const getNearestSectionIndex = () => {
-      const scrollTop = window.scrollY;
       let nearestIndex = 0;
       let minDistance = Infinity;
 
       sections.forEach((section, index) => {
-        const distance = Math.abs(section.offsetTop - scrollTop);
+        const distance = Math.abs(section.getBoundingClientRect().top);
         if (distance < minDistance) {
           minDistance = distance;
           nearestIndex = index;
@@ -43,7 +43,7 @@ function App() {
       if (!target) return;
 
       isScrolling = true;
-      target.scrollIntoView({ behavior: 'smooth' });
+      window.scrollTo({ top: target.offsetTop, behavior: 'smooth' });
 
       window.setTimeout(() => {
         isScrolling = false;
@@ -66,14 +66,18 @@ function App() {
 
     const onTouchStart = (event: TouchEvent) => {
       touchStartY = event.touches[0]?.clientY ?? 0;
+      touchCurrentY = touchStartY;
     };
 
-    const onTouchEnd = (event: TouchEvent) => {
+    const onTouchMove = (event: TouchEvent) => {
+      touchCurrentY = event.touches[0]?.clientY ?? touchCurrentY;
+    };
+
+    const onTouchEnd = () => {
       if (isScrolling || !sections.length) return;
 
-      const touchEndY = event.changedTouches[0]?.clientY ?? 0;
-      const deltaY = touchStartY - touchEndY;
-      if (Math.abs(deltaY) < 30) return;
+      const deltaY = touchStartY - touchCurrentY;
+      if (Math.abs(deltaY) < 20) return;
 
       const currentIndex = getNearestSectionIndex();
       const targetIndex = deltaY > 0
@@ -87,11 +91,13 @@ function App() {
 
     window.addEventListener('wheel', onWheel, { passive: false });
     window.addEventListener('touchstart', onTouchStart, { passive: true });
+    window.addEventListener('touchmove', onTouchMove, { passive: true });
     window.addEventListener('touchend', onTouchEnd, { passive: true });
 
     return () => {
       window.removeEventListener('wheel', onWheel);
       window.removeEventListener('touchstart', onTouchStart);
+      window.removeEventListener('touchmove', onTouchMove);
       window.removeEventListener('touchend', onTouchEnd);
       ScrollTrigger.getAll().forEach(st => st.kill());
     };
