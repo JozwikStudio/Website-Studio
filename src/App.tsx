@@ -18,54 +18,81 @@ gsap.registerPlugin(ScrollTrigger);
 
 function App() {
   useEffect(() => {
-    // Wait for all ScrollTriggers to be created
-    const timeout = setTimeout(() => {
-      const pinned = ScrollTrigger.getAll()
-        .filter(st => st.vars.pin)
-        .sort((a, b) => a.start - b.start);
-      
-      const maxScroll = ScrollTrigger.maxScroll(window);
-      
-      if (!maxScroll || pinned.length === 0) return;
+    const sections = Array.from(document.querySelectorAll('main > section')) as HTMLElement[];
+    let isScrolling = false;
+    let touchStartY = 0;
 
-      // Build ranges and snap targets from pinned sections
-      const pinnedRanges = pinned.map(st => ({
-        start: st.start / maxScroll,
-        end: (st.end ?? st.start) / maxScroll,
-        center: (st.start + ((st.end ?? st.start) - st.start) * 0.5) / maxScroll,
-      }));
+    const getNearestSectionIndex = () => {
+      const scrollTop = window.scrollY;
+      let nearestIndex = 0;
+      let minDistance = Infinity;
 
-      // Create global snap
-      ScrollTrigger.create({
-        snap: {
-          snapTo: (value: number) => {
-            // Check if within any pinned range (with buffer)
-            const inPinned = pinnedRanges.some(
-              r => value >= r.start - 0.02 && value <= r.end + 0.02
-            );
-            
-            if (!inPinned) return value; // Flowing section: free scroll
-
-            // Find nearest pinned center
-            const target = pinnedRanges.reduce(
-              (closest, r) =>
-                Math.abs(r.center - value) < Math.abs(closest - value)
-                  ? r.center
-                  : closest,
-              pinnedRanges[0]?.center ?? 0
-            );
-
-            return target;
-          },
-          duration: { min: 0.15, max: 0.35 },
-          delay: 0,
-          ease: 'power2.out',
-        },
+      sections.forEach((section, index) => {
+        const distance = Math.abs(section.offsetTop - scrollTop);
+        if (distance < minDistance) {
+          minDistance = distance;
+          nearestIndex = index;
+        }
       });
-    }, 100);
+
+      return nearestIndex;
+    };
+
+    const scrollToSection = (index: number) => {
+      const target = sections[index];
+      if (!target) return;
+
+      isScrolling = true;
+      target.scrollIntoView({ behavior: 'smooth' });
+
+      window.setTimeout(() => {
+        isScrolling = false;
+      }, 700);
+    };
+
+    const onWheel = (event: WheelEvent) => {
+      if (isScrolling || !sections.length || event.deltaY === 0) return;
+      event.preventDefault();
+
+      const currentIndex = getNearestSectionIndex();
+      const targetIndex = event.deltaY > 0
+        ? Math.min(currentIndex + 1, sections.length - 1)
+        : Math.max(currentIndex - 1, 0);
+
+      if (targetIndex !== currentIndex) {
+        scrollToSection(targetIndex);
+      }
+    };
+
+    const onTouchStart = (event: TouchEvent) => {
+      touchStartY = event.touches[0]?.clientY ?? 0;
+    };
+
+    const onTouchEnd = (event: TouchEvent) => {
+      if (isScrolling || !sections.length) return;
+
+      const touchEndY = event.changedTouches[0]?.clientY ?? 0;
+      const deltaY = touchStartY - touchEndY;
+      if (Math.abs(deltaY) < 30) return;
+
+      const currentIndex = getNearestSectionIndex();
+      const targetIndex = deltaY > 0
+        ? Math.min(currentIndex + 1, sections.length - 1)
+        : Math.max(currentIndex - 1, 0);
+
+      if (targetIndex !== currentIndex) {
+        scrollToSection(targetIndex);
+      }
+    };
+
+    window.addEventListener('wheel', onWheel, { passive: false });
+    window.addEventListener('touchstart', onTouchStart, { passive: true });
+    window.addEventListener('touchend', onTouchEnd, { passive: true });
 
     return () => {
-      clearTimeout(timeout);
+      window.removeEventListener('wheel', onWheel);
+      window.removeEventListener('touchstart', onTouchStart);
+      window.removeEventListener('touchend', onTouchEnd);
       ScrollTrigger.getAll().forEach(st => st.kill());
     };
   }, []);
