@@ -22,20 +22,18 @@ function App() {
     let isScrolling = false;
     let touchStartY = 0;
     let touchCurrentY = 0;
+    const sectionPositions = sections.map(section => section.offsetTop);
 
-    const getNearestSectionIndex = () => {
-      let nearestIndex = 0;
-      let minDistance = Infinity;
-
-      sections.forEach((section, index) => {
-        const distance = Math.abs(section.getBoundingClientRect().top);
-        if (distance < minDistance) {
-          minDistance = distance;
-          nearestIndex = index;
+    const getCurrentSectionIndex = () => {
+      const scrollTop = window.scrollY || document.documentElement.scrollTop;
+      for (let i = 0; i < sectionPositions.length; i += 1) {
+        const start = sectionPositions[i];
+        const end = sectionPositions[i + 1] ?? Number.POSITIVE_INFINITY;
+        if (scrollTop >= start - 20 && scrollTop < end - 20) {
+          return i;
         }
-      });
-
-      return nearestIndex;
+      }
+      return 0;
     };
 
     const scrollToSection = (index: number) => {
@@ -43,7 +41,7 @@ function App() {
       if (!target) return;
 
       isScrolling = true;
-      target.scrollIntoView({ behavior: 'auto', block: 'start' });
+      window.scrollTo({ top: target.offsetTop, behavior: 'auto' });
 
       window.setTimeout(() => {
         isScrolling = false;
@@ -53,9 +51,9 @@ function App() {
     const onWheel = (event: WheelEvent) => {
       if (isScrolling || !sections.length || event.deltaY === 0) return;
       event.preventDefault();
-      event.stopPropagation();
+      event.stopImmediatePropagation();
 
-      const currentIndex = getNearestSectionIndex();
+      const currentIndex = getCurrentSectionIndex();
       const targetIndex = event.deltaY > 0
         ? Math.min(currentIndex + 1, sections.length - 1)
         : Math.max(currentIndex - 1, 0);
@@ -72,15 +70,16 @@ function App() {
 
     const onTouchMove = (event: TouchEvent) => {
       touchCurrentY = event.touches[0]?.clientY ?? touchCurrentY;
+      event.preventDefault();
     };
 
     const onTouchEnd = () => {
       if (isScrolling || !sections.length) return;
 
       const deltaY = touchStartY - touchCurrentY;
-      if (Math.abs(deltaY) < 20) return;
+      if (Math.abs(deltaY) < 30) return;
 
-      const currentIndex = getNearestSectionIndex();
+      const currentIndex = getCurrentSectionIndex();
       const targetIndex = deltaY > 0
         ? Math.min(currentIndex + 1, sections.length - 1)
         : Math.max(currentIndex - 1, 0);
@@ -92,7 +91,7 @@ function App() {
 
     document.addEventListener('wheel', onWheel, { passive: false, capture: true });
     document.addEventListener('touchstart', onTouchStart, { passive: true, capture: true });
-    document.addEventListener('touchmove', onTouchMove, { passive: true, capture: true });
+    document.addEventListener('touchmove', onTouchMove, { passive: false, capture: true });
     document.addEventListener('touchend', onTouchEnd, { passive: true, capture: true });
 
     return () => {

@@ -39,6 +39,13 @@
   body {
     @apply bg-noir text-foreground font-body antialiased;
     overflow-x: hidden;
+    scroll-snap-type: y mandatory;
+    touch-action: pan-y;
+  }
+  
+  main > section {
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
   }
   
   ::selection {
