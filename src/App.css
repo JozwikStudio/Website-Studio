@@ -1,0 +1,113 @@
+/* App-specific styles */
+
+/* Smooth scrolling for the entire page */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Hide scrollbar but keep functionality */
+body::-webkit-scrollbar {
+  width: 0px;
+  background: transparent;
+}
+
+/* Ensure sections stack properly */
+main > section {
+  position: relative;
+}
+
+/* Image panel hover effect */
+.image-panel {
+  transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.image-panel:hover {
+  transform: scale(1.01);
+}
+
+/* CTA link underline animation */
+.cta-link::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background-color: rgba(201, 168, 106, 0.6);
+  transition: background-color 0.3s ease;
+}
+
+.cta-link:hover::after {
+  background-color: #C9A86A;
+}
+
+/* Form input focus states */
+input:focus,
+textarea:focus,
+select:focus {
+  border-color: #C9A86A !important;
+}
+
+/* Select dropdown arrow */
+select {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%230B0B0C' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 0 center;
+  background-size: 20px;
+  padding-right: 28px;
+}
+
+/* Button hover lift */
+button[type="submit"] {
+  transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+button[type="submit"]:hover {
+  transform: translateY(-2px);
+}
+
+/* Responsive adjustments */
+@media (max-width: 1024px) {
+  .text-display-xl {
+    font-size: clamp(36px, 8vw, 64px) !important;
+  }
+  
+  .text-display-lg {
+    font-size: clamp(28px, 6vw, 48px) !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .section-pinned {
+    min-height: 100svh;
+  }
+  
+  .text-display-xl {
+    font-size: clamp(32px, 10vw, 48px) !important;
+  }
+  
+  .text-display-lg {
+    font-size: clamp(24px, 8vw, 36px) !important;
+  }
+  
+  /* Stack image panels on mobile */
+  .image-panel {
+    position: relative !important;
+    left: auto !important;
+    top: auto !important;
+    width: 90vw !important;
+    height: 50vh !important;
+    margin: 2vh auto;
+  }
+}
+
+/* Reduced motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  .image-panel:hover {
+    transform: none;
+  }
+  
+  button[type="submit"]:hover {
+    transform: none;
+  }
+}
