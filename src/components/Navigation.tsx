@@ -23,8 +23,13 @@ export default function Navigation() {
   };
 
   const menuItems = [
+    { label: 'Home', id: 'hero' },
+    { label: 'Philosophie', id: 'philosophie' },
     { label: 'Arbeiten', id: 'arbeiten' },
-    { label: 'Leistungen', id: 'kampagnen' },
+    { label: 'Kampagnen', id: 'kampagnen' },
+    { label: 'Studio', id: 'studio-sessions' },
+    { label: 'Editorial', id: 'editorial' },
+    { label: 'Portraits', id: 'portraits' },
     { label: 'Kontakt', id: 'kontakt' },
   ];
 

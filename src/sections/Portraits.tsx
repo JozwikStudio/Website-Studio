@@ -99,6 +99,7 @@ export default function Portraits() {
   return (
     <section
       ref={sectionRef}
+      id="portraits"
       className="section-pinned bg-noir flex items-center justify-center z-[70]"
     >
       {/* Micro label */}

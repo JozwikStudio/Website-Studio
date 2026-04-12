@@ -99,6 +99,7 @@ export default function StudioSessions() {
   return (
     <section
       ref={sectionRef}
+      id="studio-sessions"
       className="section-pinned bg-noir flex items-center justify-center z-50"
     >
       {/* Micro label */}

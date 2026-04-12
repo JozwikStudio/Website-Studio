@@ -122,6 +122,7 @@ export default function Philosophy() {
   return (
     <section
       ref={sectionRef}
+      id="philosophie"
       className="section-pinned bg-noir flex items-center justify-center z-20"
     >
       {/* Micro label */}

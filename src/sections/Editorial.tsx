@@ -106,6 +106,7 @@ export default function Editorial() {
   return (
     <section
       ref={sectionRef}
+      id="editorial"
       className="section-pinned bg-noir flex items-center justify-center z-[60]"
     >
       {/* Micro labels */}

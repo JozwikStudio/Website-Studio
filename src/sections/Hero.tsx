@@ -154,6 +154,7 @@ export default function Hero() {
   return (
     <section
       ref={sectionRef}
+      id="hero"
       className="section-pinned bg-noir flex items-center justify-center z-10"
     >
       {/* Micro labels */}
