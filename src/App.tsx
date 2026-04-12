@@ -43,7 +43,7 @@ function App() {
       if (!target) return;
 
       isScrolling = true;
-      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      target.scrollIntoView({ behavior: 'auto', block: 'start' });
 
       window.setTimeout(() => {
         isScrolling = false;
@@ -90,16 +90,16 @@ function App() {
       }
     };
 
-    window.addEventListener('wheel', onWheel, { passive: false, capture: true });
-    window.addEventListener('touchstart', onTouchStart, { passive: true, capture: true });
-    window.addEventListener('touchmove', onTouchMove, { passive: true, capture: true });
-    window.addEventListener('touchend', onTouchEnd, { passive: true, capture: true });
+    document.addEventListener('wheel', onWheel, { passive: false, capture: true });
+    document.addEventListener('touchstart', onTouchStart, { passive: true, capture: true });
+    document.addEventListener('touchmove', onTouchMove, { passive: true, capture: true });
+    document.addEventListener('touchend', onTouchEnd, { passive: true, capture: true });
 
     return () => {
-      window.removeEventListener('wheel', onWheel, { capture: true });
-      window.removeEventListener('touchstart', onTouchStart, { capture: true });
-      window.removeEventListener('touchmove', onTouchMove, { capture: true });
-      window.removeEventListener('touchend', onTouchEnd, { capture: true });
+      document.removeEventListener('wheel', onWheel, { capture: true });
+      document.removeEventListener('touchstart', onTouchStart, { capture: true });
+      document.removeEventListener('touchmove', onTouchMove, { capture: true });
+      document.removeEventListener('touchend', onTouchEnd, { capture: true });
       ScrollTrigger.getAll().forEach(st => st.kill());
     };
   }, []);

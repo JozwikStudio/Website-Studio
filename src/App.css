@@ -1,8 +1,8 @@
 /* App-specific styles */
 
-/* Smooth scrolling for the entire page */
+/* Smooth scrolling for the entire page is disabled so section snapping can be controlled in JS */
 html {
-  scroll-behavior: smooth;
+  scroll-behavior: auto;
 }
 
 /* Hide scrollbar but keep functionality */
