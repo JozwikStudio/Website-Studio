@@ -1,107 +1,84 @@
-import { useEffect } from "react";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-import ScrollToPlugin from "gsap/ScrollToPlugin";
+import { useEffect } from 'react';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { Observer } from 'gsap/Observer';
 
-import Navigation from "./components/Navigation";
-import Hero from "./sections/Hero";
-import Philosophy from "./sections/Philosophy";
-import Gallery from "./sections/Gallery";
-import Campaigns from "./sections/Campaigns";
-import StudioSessions from "./sections/StudioSessions";
-import Editorial from "./sections/Editorial";
-import Portraits from "./sections/Portraits";
-import Contact from "./sections/Contact";
+import Navigation from './components/Navigation';
+import Hero from './sections/Hero';
+import Philosophy from './sections/Philosophy';
+import Gallery from './sections/Gallery';
+import Campaigns from './sections/Campaigns';
+import StudioSessions from './sections/StudioSessions';
+import Editorial from './sections/Editorial';
+import Portraits from './sections/Portraits';
+import Contact from './sections/Contact';
 
-import "./App.css";
+import './App.css';
 
-gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
+gsap.registerPlugin(ScrollTrigger, Observer);
 
 function App() {
   useEffect(() => {
-    const sections = Array.from(
-      document.querySelectorAll("main > section")
-    ) as HTMLElement[];
+    const sections = ScrollTrigger.getAll()
+      .filter(st => st.trigger instanceof HTMLElement)
+      .sort((a, b) => a.start - b.start);
 
     let index = 0;
-    let isAnimating = false;
+    let locked = false;
 
     const goTo = (i: number) => {
       const target = sections[i];
-      if (!target || isAnimating) return;
+      if (!target || locked) return;
 
-      isAnimating = true;
+      locked = true;
       index = i;
 
       gsap.to(window, {
-        scrollTo: target.offsetTop,
+        scrollTo: target.start,
         duration: 1,
-        ease: "power2.inOut",
+        ease: 'power2.inOut',
         onComplete: () => {
-          isAnimating = false;
+          locked = false;
         },
       });
     };
 
-    // 🔥 Wheel (Desktop + Trackpad + Mobile scroll emulation)
-    const onWheel = (e: WheelEvent) => {
-      if (isAnimating) return;
+    Observer.create({
+      type: 'wheel,touch,pointer',
+      wheelSpeed: -1,
+      tolerance: 10,
 
-      if (e.deltaY > 0) {
+      onDown: () => {
         goTo(Math.min(index + 1, sections.length - 1));
-      } else {
+      },
+
+      onUp: () => {
         goTo(Math.max(index - 1, 0));
-      }
-    };
+      },
+    });
 
-    window.addEventListener("wheel", onWheel, { passive: true });
-
-    // 📱 Touch Support (iOS / Android)
-    let touchStartY = 0;
-
-    const onTouchStart = (e: TouchEvent) => {
-      touchStartY = e.touches[0].clientY;
-    };
-
-    const onTouchEnd = (e: TouchEvent) => {
-      const touchEndY = e.changedTouches[0].clientY;
-      const diff = touchStartY - touchEndY;
-
-      if (Math.abs(diff) < 60) return;
-
-      if (diff > 0) {
-        goTo(Math.min(index + 1, sections.length - 1));
-      } else {
-        goTo(Math.max(index - 1, 0));
-      }
-    };
-
-    window.addEventListener("touchstart", onTouchStart, { passive: true });
-    window.addEventListener("touchend", onTouchEnd, { passive: true });
-
-    // initial sync (optional)
     ScrollTrigger.refresh();
 
     return () => {
-      window.removeEventListener("wheel", onWheel);
-      window.removeEventListener("touchstart", onTouchStart);
-      window.removeEventListener("touchend", onTouchEnd);
+      Observer.getAll().forEach(o => o.kill());
+      ScrollTrigger.getAll().forEach(st => st.kill());
     };
   }, []);
 
   return (
     <div className="relative bg-noir">
+
       <Navigation />
 
       <main className="relative">
-        <section><Hero /></section>
-        <section><Philosophy /></section>
-        <section><Gallery /></section>
-        <section><Campaigns /></section>
-        <section><StudioSessions /></section>
-        <section><Editorial /></section>
-        <section><Portraits /></section>
-        <section><Contact /></section>
+        <Hero />
+        <Philosophy />
+        <Gallery />
+        <Campaigns />
+        <StudioSessions />
+        <Editorial />
+        <Portraits />
+        <Contact />
       </main>
     </div>
   );
