@@ -143,12 +143,8 @@ export default function AGB() {
           <section>
             <h2 className="font-display font-medium text-xl text-noir">11. Widerrufsrecht (B2C)</h2>
             <p className="text-noir/70 mt-3 leading-relaxed">
-              Bei Verbrauchern besteht grundsätzlich ein gesetzliches Widerrufsrecht.
-            </p>
-            <p className="text-noir/70 mt-3 leading-relaxed">
-              Das Widerrufsrecht erlischt vorzeitig, wenn der Kunde ausdrücklich zustimmt,
-              dass mit der Ausführung der Dienstleistung vor Ablauf der Widerrufsfrist begonnen wird
-              und er über den Verlust des Widerrufsrechts belehrt wurde.
+              Das Widerrufsrecht erlischt, sobald der Kunde ausdrücklich zustimmt,
+              dass mit der Ausführung der Dienstleistung begonnen wird und er über den Verlust des Widerrufsrechts belehrt wurde.
             </p>
           </section>
 
@@ -159,28 +155,40 @@ export default function AGB() {
               Józwik Studio haftet nur bei Vorsatz und grober Fahrlässigkeit.
               Bei einfacher Fahrlässigkeit nur bei Verletzung wesentlicher Vertragspflichten.
             </p>
-            <p className="text-noir/70 mt-3 leading-relaxed">
-              Die Haftung ist in diesem Fall auf den vertragstypischen, vorhersehbaren Schaden begrenzt.
-            </p>
           </section>
 
-          {/* 13 */}
+          {/* 13 - NEW */}
           <section>
-            <h2 className="font-display font-medium text-xl text-noir">13. Datenschutz</h2>
+            <h2 className="font-display font-medium text-xl text-noir">13. Zahlungsmodalitäten</h2>
             <p className="text-noir/70 mt-3 leading-relaxed">
-              Es gilt die Datenschutzerklärung von Józwik Studio.
+              Die Vergütung wird individuell im Angebot festgelegt.
+            </p>
+            <p className="text-noir/70 mt-3 leading-relaxed">
+              Rechnungen sind innerhalb von 14 Tagen nach Zugang ohne Abzug fällig, sofern nichts anderes vereinbart wurde.
+            </p>
+            <p className="text-noir/70 mt-3 leading-relaxed">
+              Bei Zahlungsverzug gelten die gesetzlichen Verzugszinsen gemäß § 288 BGB sowie angemessene Mahngebühren.
+              Offene Forderungen können an ein Inkassounternehmen oder im Rahmen eines gerichtlichen Mahnverfahrens geltend gemacht werden.
+            </p>
+            <p className="text-noir/70 mt-3 leading-relaxed">
+              Zahlungen gelten erst mit vollständigem Zahlungseingang als geleistet.
             </p>
           </section>
 
           {/* 14 */}
           <section>
-            <h2 className="font-display font-medium text-xl text-noir">14. Schlussbestimmungen</h2>
+            <h2 className="font-display font-medium text-xl text-noir">14. Datenschutz</h2>
+            <p className="text-noir/70 mt-3 leading-relaxed">
+              Es gilt die Datenschutzerklärung von Józwik Studio.
+            </p>
+          </section>
+
+          {/* 15 */}
+          <section>
+            <h2 className="font-display font-medium text-xl text-noir">15. Schlussbestimmungen</h2>
             <p className="text-noir/70 mt-3 leading-relaxed">
               Es gilt deutsches Recht unter Ausschluss des UN-Kaufrechts.
               Gerichtsstand ist Leipzig, soweit gesetzlich zulässig.
-            </p>
-            <p className="text-noir/70 mt-3 leading-relaxed">
-              Sollten einzelne Bestimmungen unwirksam sein, bleibt die Wirksamkeit der übrigen Regelungen unberührt.
             </p>
           </section>
 
