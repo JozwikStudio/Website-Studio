@@ -8,7 +8,7 @@ export default function Hero() {
   const leftHeadlineRef = useRef<HTMLHeadingElement>(null);
   const rightHeadlineRef = useRef<HTMLHeadingElement>(null);
   const microLabelsRef = useRef<HTMLDivElement>(null);
-  const ctaRef = useRef<HTMLAnchorElement>(null);
+  const ctaRef = useRef<HTMLButtonElement>(null);
   const bottomInfoRef = useRef<HTMLDivElement>(null);
 
   // Initial load animation

@@ -12,7 +12,7 @@ export default function Gallery({ isActive = false }: GalleryProps) {
   const rightImageRef = useRef<HTMLDivElement>(null);
   const headlineRef = useRef<HTMLHeadingElement>(null);
   const subcopyRef = useRef<HTMLParagraphElement>(null);
-  const ctaRef = useRef<HTMLAnchorElement>(null);
+  const ctaRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
     if (!isActive) return;
