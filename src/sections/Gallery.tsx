@@ -128,13 +128,13 @@ export default function Gallery({ isActive = false }: GalleryProps) {
       </p>
 
       {/* CTA */}
-      <a
+      <button
         ref={ctaRef}
-        href="#kampagnen"
+        onClick={() => window.dispatchEvent(new CustomEvent('scrollToSection', { detail: 'kampagnen' }))}
         className="cta-link absolute left-1/2 top-[78vh] -translate-x-1/2 z-50 opacity-0"
       >
         Projekte erkunden
-      </a>
+      </button>
     </section>
   );
 }

@@ -20,12 +20,22 @@ function App() {
   const [currentSection, setCurrentSection] = useState(0);
   const isAnimating = useRef(false);
   const touchStartY = useRef(0);
-  const sections = ['hero', 'philosophy', 'gallery', 'campaigns', 'studio', 'editorial', 'portraits', 'contact'];
+  const sections = ['hero', 'philosophy', 'arbeiten', 'kampagnen', 'studio', 'editorial', 'portraits', 'kontakt'];
   const animationDuration = 2400;
 
   useEffect(() => {
     // Disable native scroll
     document.body.style.overflow = 'hidden';
+    
+    const handleScrollToSection = (e: CustomEvent) => {
+      const sectionId = e.detail;
+      const sectionIndex = sections.indexOf(sectionId);
+      if (sectionIndex !== -1) {
+        setCurrentSection(sectionIndex);
+      }
+    };
+
+    window.addEventListener('scrollToSection', handleScrollToSection as EventListener);
     
     const handleWheel = (e: WheelEvent) => {
       e.preventDefault();
@@ -109,6 +119,7 @@ function App() {
       window.removeEventListener('touchstart', handleTouchStart);
       window.removeEventListener('touchend', handleTouchEnd);
       window.removeEventListener('keydown', handleKeyDown);
+      window.removeEventListener('scrollToSection', handleScrollToSection as EventListener);
       document.body.style.overflow = '';
     };
   }, [currentSection]);

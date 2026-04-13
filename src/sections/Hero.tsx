@@ -128,13 +128,13 @@ export default function Hero() {
       </h1>
 
       {/* CTA */}
-      <a
+      <button
         ref={ctaRef}
-        href="#arbeiten"
+        onClick={() => window.dispatchEvent(new CustomEvent('scrollToSection', { detail: 'arbeiten' }))}
         className="cta-link absolute left-[6vw] top-[34vh] z-20"
       >
         Ausgewählte Arbeiten
-      </a>
+      </button>
 
       {/* Bottom info */}
       <div ref={bottomInfoRef} className="absolute inset-x-[6vw] bottom-[5vh] flex justify-between pointer-events-none">

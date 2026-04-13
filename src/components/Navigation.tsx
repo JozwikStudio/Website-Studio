@@ -16,10 +16,7 @@ export default function Navigation() {
 
   const scrollToSection = (id: string) => {
     setIsMenuOpen(false);
-    const element = document.getElementById(id);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-    }
+    window.dispatchEvent(new CustomEvent('scrollToSection', { detail: id }));
   };
 
   const menuItems = [
@@ -40,13 +37,9 @@ export default function Navigation() {
       >
         <div className="px-[6vw] flex items-center justify-between">
           {/* Logo */}
-          <a
-            href="#"
+          <button
             className="inline-flex items-center gap-3"
-            onClick={(e) => {
-              e.preventDefault();
-              window.scrollTo({ top: 0, behavior: 'smooth' });
-            }}
+            onClick={() => window.dispatchEvent(new CustomEvent('scrollToSection', { detail: 'hero' }))}
           >
             <img
               src="/images/logo.png"
@@ -60,7 +53,7 @@ export default function Navigation() {
             >
               Józwik Studio
             </span>
-          </a>
+          </button>
 
           {/* Menu button */}
           <button
@@ -82,12 +75,12 @@ export default function Navigation() {
         <div className="h-full flex flex-col">
           {/* Menu header */}
           <div className="px-[6vw] py-6 flex items-center justify-between">
-            <a href="#" className="inline-flex items-center gap-3">
+            <button className="inline-flex items-center gap-3" onClick={() => window.dispatchEvent(new CustomEvent('scrollToSection', { detail: 'hero' }))}>
               <img src="/images/logo.png" alt="Józwik Studio" className="w-6 h-6" />
               <span className="font-display font-medium text-ivory text-sm tracking-tight">
                 Józwik Studio
               </span>
-            </a>
+            </button>
             <button
               onClick={() => setIsMenuOpen(false)}
               className="flex items-center gap-2 text-ivory/80 hover:text-ivory transition-colors duration-300"

@@ -74,12 +74,12 @@ export default function Contact({ isActive = false }: ContactProps) {
     >
       {/* Logo */}
       <div className="mb-[6vh]">
-        <a href="#" className="inline-flex items-center gap-3">
+        <button className="inline-flex items-center gap-3" onClick={() => window.dispatchEvent(new CustomEvent('scrollToSection', { detail: 'hero' }))}>
           <img src="/images/logo.png" alt="Józwik Studio" className="w-8 h-8" />
           <span className="font-display font-medium text-noir text-lg tracking-tight">
             Józwik Studio
           </span>
-        </a>
+        </button>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-[5vw]">
