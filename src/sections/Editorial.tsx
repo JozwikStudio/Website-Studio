@@ -111,7 +111,7 @@ export default function Editorial({ isActive = false }: EditorialProps) {
       {/* Right headline */}
       <h2
         ref={rightHeadlineRef}
-        className="absolute left-[58vw] top-[62vh] font-display font-light text-display-xl text-ivory/95 z-20 opacity-0"
+        className="absolute right-[6vw] top-[62vh] font-display font-light text-display-xl text-right text-ivory/95 z-20 opacity-0"
       >
         für Magazine
       </h2>

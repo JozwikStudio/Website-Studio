@@ -83,6 +83,7 @@ export default function Portraits({ isActive = false }: PortraitsProps) {
           src="/images/portraits_bg.jpg"
           alt="Portrait session"
           className="w-full h-full object-cover"
+          style={{ objectPosition: '27% center' }}
         />
         {/* Dark overlay for text readability */}
         <div className="absolute inset-0 bg-gradient-to-l from-noir/80 via-transparent to-transparent" />

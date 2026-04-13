@@ -1,11 +1,6 @@
 /* App-specific styles */
 
-/* Disable native scroll - we handle it manually */
-html, body {
-  overflow: hidden;
-  height: 100%;
-  width: 100%;
-}
+/* App-specific wrapper handles native scroll inside the homepage */
 
 /* Image panel hover effect */
 .image-panel {

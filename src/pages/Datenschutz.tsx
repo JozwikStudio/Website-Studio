@@ -146,7 +146,7 @@ export default function Datenschutz() {
               <p>Józwik Studio</p>
               <p>Max Mustermann</p>
               <p>Musterstraße 123</p>
-              <p>10115 Berlin</p>
+              <p>04155 Leipzig</p>
               <p>Telefon: +49 123 456 789 0</p>
               <p>E-Mail: hello@jozwikstudio.de</p>
             </div>

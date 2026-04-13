@@ -37,7 +37,7 @@ export default function Impressum() {
             <div className="font-body text-noir/70 space-y-2">
               <p>Józwik Studio</p>
               <p>Musterstraße 123</p>
-              <p>10115 Berlin</p>
+              <p>04155 Leipzig</p>
               <p>Deutschland</p>
             </div>
           </section>
@@ -80,7 +80,7 @@ export default function Impressum() {
             <div className="font-body text-noir/70 space-y-2">
               <p>Muster Versicherung AG</p>
               <p>Musterweg 45</p>
-              <p>10117 Berlin</p>
+              <p>04155 Leipzig</p>
               <p>Räumlicher Geltungsbereich: Deutschland</p>
             </div>
           </section>

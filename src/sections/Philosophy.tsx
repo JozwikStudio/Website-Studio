@@ -95,7 +95,7 @@ export default function Philosophy({ isActive = false }: PhilosophyProps) {
           className="gold-rule w-[6vw] mb-8 origin-left"
         />
         <p className="text-body max-w-[44ch]">
-          Wir reduzieren auf das Wesentliche. Licht, Haltung, Augenblick. 
+          Ich reduziere auf das Wesentliche. Licht, Haltung, Augenblick. 
           So entsteht ein Bild, das nicht wirkt—sondern bleibt.
         </p>
       </div>

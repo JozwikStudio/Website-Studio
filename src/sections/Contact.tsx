@@ -1,6 +1,6 @@
-import { useRef, useEffect, useState } from 'react';
+import { useRef, useEffect } from 'react';
 import gsap from 'gsap';
-import { Mail, Phone, MapPin, Instagram, Send } from 'lucide-react';
+import { Mail, Phone, MapPin, Instagram } from 'lucide-react';
 
 interface ContactProps {
   isActive?: boolean;
@@ -12,15 +12,6 @@ export default function Contact({ isActive = false }: ContactProps) {
   const rightColumnRef = useRef<HTMLDivElement>(null);
   const footerRef = useRef<HTMLDivElement>(null);
 
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    project: '',
-    budget: '',
-    message: '',
-  });
-
-  const [isSubmitted, setIsSubmitted] = useState(false);
 
   useEffect(() => {
     if (!isActive) return;
@@ -56,15 +47,6 @@ export default function Contact({ isActive = false }: ContactProps) {
     return () => ctx.revert();
   }, [isActive]);
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    setIsSubmitted(true);
-    setTimeout(() => setIsSubmitted(false), 3000);
-  };
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
 
   return (
     <section
@@ -86,20 +68,20 @@ export default function Contact({ isActive = false }: ContactProps) {
         {/* Left column - Info */}
         <div ref={leftColumnRef} className="opacity-0">
           <h2 className="font-display font-light text-display-md text-noir mb-5">
-            Lassen Sie uns drehen.
+            Ihre Fotos, mein Fokus.
           </h2>
           <p className="font-body text-lg text-noir/70 max-w-[44ch] mb-8">
-            Erzählen Sie uns vom Projekt. Wir melden uns innerhalb von zwei Werktagen.
+            Teilen Sie mir Ihre Vision mit – ich antworte persönlich innerhalb von zwei Werktagen.
           </p>
 
           {/* Contact details */}
           <div className="space-y-4">
             <a
-              href="mailto:hello@jozwikstudio.de"
+              href="mailto:mail@jozwik-studio.de"
               className="flex items-center gap-4 text-noir/80 hover:text-gold transition-colors duration-300"
             >
               <Mail className="w-5 h-5" strokeWidth={1.5} />
-              <span className="font-body">hello@jozwikstudio.de</span>
+              <span className="font-body">mail@jozwik-studio.de</span>
             </a>
             <a
               href="tel:+491234567890"
@@ -110,110 +92,23 @@ export default function Contact({ isActive = false }: ContactProps) {
             </a>
             <div className="flex items-center gap-4 text-noir/80">
               <MapPin className="w-5 h-5" strokeWidth={1.5} />
-              <span className="font-body">Berlin / weltweit</span>
+              <span className="font-body">Leipzig / weltweit</span>
             </div>
           </div>
         </div>
 
-        {/* Right column - Form */}
         <div ref={rightColumnRef} className="opacity-0">
-          <form onSubmit={handleSubmit} className="space-y-4">
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <div>
-                <label htmlFor="name" className="text-micro text-noir/60 block mb-2">
-                  NAME
-                </label>
-                <input
-                  type="text"
-                  id="name"
-                  name="name"
-                  value={formData.name}
-                  onChange={handleChange}
-                  required
-                  className="w-full bg-transparent border-b border-noir/20 py-3 font-body text-noir focus:outline-none focus:border-gold transition-colors duration-300"
-                  placeholder="Ihr Name"
-                />
-              </div>
-              <div>
-                <label htmlFor="email" className="text-micro text-noir/60 block mb-2">
-                  E-MAIL
-                </label>
-                <input
-                  type="email"
-                  id="email"
-                  name="email"
-                  value={formData.email}
-                  onChange={handleChange}
-                  required
-                  className="w-full bg-transparent border-b border-noir/20 py-3 font-body text-noir focus:outline-none focus:border-gold transition-colors duration-300"
-                  placeholder="ihre@email.de"
-                />
-              </div>
-            </div>
-
-            <div>
-              <label htmlFor="project" className="text-micro text-noir/60 block mb-2">
-                PROJEKT
-              </label>
-              <input
-                type="text"
-                id="project"
-                name="project"
-                value={formData.project}
-                onChange={handleChange}
-                className="w-full bg-transparent border-b border-noir/20 py-3 font-body text-noir focus:outline-none focus:border-gold transition-colors duration-300"
-                placeholder="Art des Projekts"
-              />
-            </div>
-
-            <div>
-              <label htmlFor="budget" className="text-micro text-noir/60 block mb-2">
-                BUDGET
-              </label>
-              <select
-                id="budget"
-                name="budget"
-                value={formData.budget}
-                onChange={handleChange}
-                className="w-full bg-transparent border-b border-noir/20 py-3 font-body text-noir focus:outline-none focus:border-gold transition-colors duration-300 appearance-none cursor-pointer"
-              >
-                <option value="">Bitte wählen</option>
-                <option value="bis-5000">Bis 5.000 €</option>
-                <option value="5000-10000">5.000 € – 10.000 €</option>
-                <option value="10000-25000">10.000 € – 25.000 €</option>
-                <option value="25000+">Über 25.000 €</option>
-              </select>
-            </div>
-
-            <div>
-              <label htmlFor="message" className="text-micro text-noir/60 block mb-2">
-                NACHRICHT
-              </label>
-              <textarea
-                id="message"
-                name="message"
-                value={formData.message}
-                onChange={handleChange}
-                rows={3}
-                className="w-full bg-transparent border-b border-noir/20 py-3 font-body text-noir focus:outline-none focus:border-gold transition-colors duration-300 resize-none"
-                placeholder="Erzählen Sie uns von Ihrem Projekt..."
-              />
-            </div>
-
-            <button
-              type="submit"
-              className="group inline-flex items-center gap-3 bg-noir text-ivory px-8 py-4 font-ui text-sm uppercase tracking-wider hover:bg-gold transition-colors duration-300 mt-4"
+          <div className="space-y-6">
+            <p className="font-body text-lg text-noir/70 max-w-[44ch]">
+              Bitte nutzen Sie direkt die Mailadresse. Beim Klick öffnet sich Ihr Mailprogramm mit einer neuen Nachricht.
+            </p>
+            <a
+              href="mailto:mail@jozwik-studio.de"
+              className="inline-flex items-center justify-center w-full bg-noir text-ivory px-8 py-4 font-ui text-sm uppercase tracking-wider hover:bg-gold transition-colors duration-300"
             >
-              {isSubmitted ? (
-                <>Gesendet</>
-              ) : (
-                <>
-                  Anfrage senden
-                  <Send className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-300" strokeWidth={1.5} />
-                </>
-              )}
-            </button>
-          </form>
+              Mail schreiben
+            </a>
+          </div>
         </div>
       </div>
 
@@ -245,6 +140,12 @@ export default function Contact({ isActive = false }: ContactProps) {
             className="text-micro text-noir/60 hover:text-gold transition-colors duration-300"
           >
             Datenschutz
+          </a>
+          <a
+            href="/agb"
+            className="text-micro text-noir/60 hover:text-gold transition-colors duration-300"
+          >
+            AGB
           </a>
         </div>
       </footer>

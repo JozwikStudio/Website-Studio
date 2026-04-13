@@ -22,6 +22,7 @@ function App() {
   const touchStartY = useRef(0);
   const sections = ['hero', 'philosophy', 'arbeiten', 'kampagnen', 'studio', 'editorial', 'portraits', 'kontakt'];
   const animationDuration = 2400;
+  const scrollLockDuration = 300;
 
   useEffect(() => {
     // Disable native scroll
@@ -58,7 +59,7 @@ function App() {
         
         setTimeout(() => {
           isAnimating.current = false;
-        }, animationDuration + 100);
+        }, scrollLockDuration);
       }
     };
 
@@ -84,7 +85,7 @@ function App() {
         
         setTimeout(() => {
           isAnimating.current = false;
-        }, animationDuration + 100);
+        }, scrollLockDuration);
       }
     };
 
@@ -97,14 +98,14 @@ function App() {
         if (currentSection < sections.length - 1) {
           isAnimating.current = true;
           setCurrentSection(prev => prev + 1);
-          setTimeout(() => { isAnimating.current = false; }, animationDuration + 100);
+          setTimeout(() => { isAnimating.current = false; }, scrollLockDuration);
         }
       } else if (e.key === 'ArrowUp' || e.key === 'PageUp') {
         e.preventDefault();
         if (currentSection > 0) {
           isAnimating.current = true;
           setCurrentSection(prev => prev - 1);
-          setTimeout(() => { isAnimating.current = false; }, animationDuration + 100);
+          setTimeout(() => { isAnimating.current = false; }, scrollLockDuration);
         }
       }
     };
