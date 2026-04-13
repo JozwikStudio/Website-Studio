@@ -168,7 +168,7 @@ export default function Navigation() {
               FOTOGRAFIE · KAMPAGNEN · EDITORIAL
             </span>
             <span className="text-micro text-ivory/40">
-              BERLIN
+              LEIPZIG
             </span>
           </div>
         </div>

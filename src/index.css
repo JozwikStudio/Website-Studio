@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+/* =========================
+   BASE THEME VARIABLES
+========================= */
+
 @layer base {
   :root {
     --background: 0 0% 4.7%;
@@ -27,113 +31,163 @@
   }
 }
 
+/* =========================
+   GLOBAL RESET / LAYOUT
+========================= */
+
 @layer base {
   * {
     @apply border-border;
   }
-  
-  html {
-    scroll-behavior: auto;
+
+  html,
+  body {
+    height: 100%;
+    overflow: hidden; /* 🔥 wichtig: verhindert natives Scrollen */
   }
-  
+
   body {
     @apply bg-noir text-foreground font-body antialiased;
+  }
+
+  #root {
+    height: 100%;
+    overflow-y: auto; /* 🔥 controlled scroll container */
     overflow-x: hidden;
   }
-  
-  main > section {
-    scroll-margin-top: 8rem;
+
+  main {
+    height: 100%;
   }
-  
+
+  /* Sections = full page */
+  main > section {
+    height: 100vh;
+    width: 100%;
+    position: relative;
+  }
+
   ::selection {
     background-color: rgba(201, 168, 106, 0.3);
     color: #F7F7F7;
   }
 }
 
+/* =========================
+   TYPOGRAPHY / UI COMPONENTS
+========================= */
+
 @layer components {
   .text-micro {
     @apply font-ui text-xs uppercase tracking-[0.18em] font-medium;
   }
-  
+
   .text-headline {
     @apply font-display font-light text-display-xl text-ivory;
   }
-  
+
   .text-subheadline {
     @apply font-display font-light text-display-lg text-ivory;
   }
-  
+
   .text-body {
     @apply font-body text-base leading-relaxed text-ivory/80;
   }
-  
+
   .gold-rule {
     @apply h-[2px] bg-gold/60;
   }
-  
+
   .hairline {
     @apply w-px bg-white/20;
   }
-  
+
   .image-panel {
     @apply relative overflow-hidden;
     border: 1px solid rgba(255, 255, 255, 0.08);
   }
-  
+
   .image-panel img {
     @apply w-full h-full object-cover;
   }
-  
+
   .vignette-overlay {
     @apply pointer-events-none fixed inset-0 z-50;
-    background: radial-gradient(ellipse at center, transparent 0%, transparent 50%, rgba(0,0,0,0.4) 100%);
+    background: radial-gradient(
+      ellipse at center,
+      transparent 0%,
+      transparent 50%,
+      rgba(0, 0, 0, 0.4) 100%
+    );
   }
-  
+
   .section-pinned {
     @apply relative w-screen h-screen overflow-hidden;
   }
-  
+
   .cta-link {
     @apply relative inline-block text-ivory/90 font-ui text-sm uppercase tracking-wider transition-all duration-300;
   }
-  
+
   .cta-link::after {
-    content: '';
+    content: "";
     @apply absolute bottom-0 left-0 h-px bg-gold/60 transition-all duration-300;
     width: 100%;
   }
-  
+
   .cta-link:hover::after {
     @apply bg-gold;
     width: 100%;
   }
-  
+
   .cta-link:hover {
     @apply text-ivory;
   }
 }
 
+/* =========================
+   UTILITIES
+========================= */
+
 @layer utilities {
   .will-change-transform {
     will-change: transform;
   }
-  
+
   .backface-hidden {
     backface-visibility: hidden;
   }
 }
 
-/* Smooth scrolling for GSAP */
-html.lenis {
-  height: auto;
-}
+/* =========================
+   GSAP / SCROLL BEHAVIOR
+========================= */
 
-.lenis.lenis-smooth {
+/* disable native smooth scroll (GSAP handles it) */
+html {
   scroll-behavior: auto;
 }
 
-/* Reduced motion */
+/* optional: prevents iOS scroll bounce issues */
+body {
+  overscroll-behavior: none;
+}
+
+/* =========================
+   MOBILE OPTIMIZATION
+========================= */
+
+@media (max-width: 768px) {
+  main > section {
+    height: 100vh;
+    height: 100dvh; /* better mobile viewport handling */
+  }
+}
+
+/* =========================
+   REDUCED MOTION
+========================= */
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
