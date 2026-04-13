@@ -67,8 +67,6 @@ function App() {
 
   return (
     <div className="relative bg-noir">
-      <div className="grain-overlay" />
-      <div className="vignette-overlay" />
 
       <Navigation />
 
