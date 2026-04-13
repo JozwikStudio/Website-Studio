@@ -20,6 +20,7 @@ export default function Gallery() {
     const ctx = gsap.context(() => {
       const scrollTl = gsap.timeline({
         scrollTrigger: {
+          id: section.id,
           trigger: section,
           start: 'top top',
           end: '+=140%',

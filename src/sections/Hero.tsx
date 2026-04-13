@@ -81,6 +81,7 @@ export default function Hero() {
       // Scroll-driven exit animation
       const scrollTl = gsap.timeline({
         scrollTrigger: {
+          id: section.id,
           trigger: section,
           start: 'top top',
           end: '+=130%',
