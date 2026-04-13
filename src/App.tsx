@@ -125,6 +125,11 @@ function App() {
     };
   }, [currentSection]);
 
+  // Dispatch section change event
+  useEffect(() => {
+    window.dispatchEvent(new CustomEvent('sectionChange', { detail: { section: sections[currentSection], index: currentSection } }));
+  }, [currentSection]);
+
   return (
     <div className="relative bg-noir h-screen w-screen overflow-hidden">
 

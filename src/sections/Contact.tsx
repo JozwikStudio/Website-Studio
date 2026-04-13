@@ -84,11 +84,11 @@ export default function Contact({ isActive = false }: ContactProps) {
               <span className="font-body">mail@jozwik-studio.de</span>
             </a>
             <a
-              href="tel:+491234567890"
+              href="tel:+4917657837198"
               className="flex items-center gap-4 text-noir/80 hover:text-gold transition-colors duration-300"
             >
               <Phone className="w-5 h-5" strokeWidth={1.5} />
-              <span className="font-body">+49 123 456 789 0</span>
+              <span className="font-body">0176 5783 71 98</span>
             </a>
             <div className="flex items-center gap-4 text-noir/80">
               <MapPin className="w-5 h-5" strokeWidth={1.5} />

@@ -4,6 +4,7 @@ import { Menu, X } from 'lucide-react';
 export default function Navigation() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isDarkSection, setIsDarkSection] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -12,6 +13,17 @@ export default function Navigation() {
 
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  // Listen for section changes
+  useEffect(() => {
+    const handleSectionChange = (e: CustomEvent) => {
+      // Contact is the last section (kontakt)
+      setIsDarkSection(e.detail.section === 'kontakt');
+    };
+
+    window.addEventListener('sectionChange', handleSectionChange as EventListener);
+    return () => window.removeEventListener('sectionChange', handleSectionChange as EventListener);
   }, []);
 
   const scrollToSection = (id: string) => {
@@ -30,8 +42,8 @@ export default function Navigation() {
       {/* Fixed header */}
       <header
         className={`fixed top-0 left-0 right-0 z-[100] transition-all duration-500 ${
-          isScrolled
-            ? 'bg-noir/90 backdrop-blur-md py-4'
+          isDarkSection || isScrolled
+            ? 'bg-noir/80 backdrop-blur-md py-4'
             : 'bg-transparent py-6'
         }`}
       >
@@ -117,7 +129,7 @@ export default function Navigation() {
           </div>
 
           {/* Menu footer */}
-          <div className="px-[6vw] py-8 flex items-center justify-between">
+          <div className="px-[6vw] py-8 flex flex-col items-center gap-2">
             <span className="text-micro text-ivory/40">
               FOTOGRAFIE · KAMPAGNEN · EDITORIAL
             </span>

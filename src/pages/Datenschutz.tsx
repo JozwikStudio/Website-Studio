@@ -1,7 +1,12 @@
 import { ArrowLeft } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { useEffect } from 'react';
 
 export default function Datenschutz() {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   return (
     <div className="min-h-screen bg-ivory">
       {/* Header */}
@@ -144,11 +149,11 @@ export default function Datenschutz() {
             </p>
             <div className="font-body text-noir/70 space-y-1 mt-4">
               <p>Józwik Studio</p>
-              <p>Max Mustermann</p>
-              <p>Musterstraße 123</p>
+              <p>Jakub Józwik</p>
+              <p>Georg-Schumann-Str. 141</p>
               <p>04155 Leipzig</p>
-              <p>Telefon: +49 123 456 789 0</p>
-              <p>E-Mail: hello@jozwikstudio.de</p>
+              <p>Telefon: 0176 5783 71 98</p>
+              <p>E-Mail: mail@jozwik-studio.de</p>
             </div>
 
             <h3 className="font-display font-medium text-lg text-noir mb-3 mt-6">

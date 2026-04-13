@@ -114,7 +114,7 @@ export default function Hero() {
       {/* Left headline */}
       <h1
         ref={leftHeadlineRef}
-        className="absolute left-[4vw] top-[18vh] font-display font-light text-display-xl text-ivory/95 z-20"
+        className="absolute left-[4vw] top-[18vh] font-display font-light text-display-xl text-ivory/95 z-20 bg-noir/20 px-3 py-2 rounded"
       >
         Józwik
       </h1>
@@ -122,7 +122,7 @@ export default function Hero() {
       {/* Right headline */}
       <h1
         ref={rightHeadlineRef}
-        className="absolute left-[62vw] top-[62vh] font-display font-light text-display-xl text-ivory/95 z-20"
+        className="absolute left-[62vw] top-[62vh] font-display font-light text-display-xl text-ivory/95 z-20 bg-noir/20 px-3 py-2 rounded"
       >
         Studio
       </h1>

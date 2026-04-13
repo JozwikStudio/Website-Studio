@@ -1,7 +1,12 @@
 import { ArrowLeft } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { useEffect } from 'react';
 
 export default function Impressum() {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   return (
     <div className="min-h-screen bg-ivory">
       {/* Header */}
@@ -36,7 +41,7 @@ export default function Impressum() {
             </h2>
             <div className="font-body text-noir/70 space-y-2">
               <p>Józwik Studio</p>
-              <p>Musterstraße 123</p>
+              <p>Georg-Schumann-Str. 141</p>
               <p>04155 Leipzig</p>
               <p>Deutschland</p>
             </div>
@@ -47,8 +52,8 @@ export default function Impressum() {
               Kontakt
             </h2>
             <div className="font-body text-noir/70 space-y-2">
-              <p>Telefon: +49 123 456 789 0</p>
-              <p>E-Mail: hello@jozwikstudio.de</p>
+              <p>Telefon: 0176 5783 71 98</p>
+              <p>E-Mail: mail@jozwik-studio.de</p>
             </div>
           </section>
 
@@ -57,32 +62,17 @@ export default function Impressum() {
               Vertreten durch
             </h2>
             <p className="font-body text-noir/70">
-              Max Mustermann (Geschäftsführer)
+              Jakub Józwik (Geschäftsführer)
             </p>
           </section>
 
           <section>
             <h2 className="font-display font-medium text-xl text-noir mb-4">
-              Umsatzsteuer-ID
+              Handwerkskammer
             </h2>
             <p className="font-body text-noir/70">
-              Umsatzsteuer-Identifikationsnummer gemäß § 27 a Umsatzsteuergesetz:
+              Mitglied der Handwerkskammer zu Leipzig als Fotograf
             </p>
-            <p className="font-body text-noir/70 mt-2">
-              DE123456789
-            </p>
-          </section>
-
-          <section>
-            <h2 className="font-display font-medium text-xl text-noir mb-4">
-              Berufshaftpflichtversicherung
-            </h2>
-            <div className="font-body text-noir/70 space-y-2">
-              <p>Muster Versicherung AG</p>
-              <p>Musterweg 45</p>
-              <p>04155 Leipzig</p>
-              <p>Räumlicher Geltungsbereich: Deutschland</p>
-            </div>
           </section>
 
           <section>
@@ -90,10 +80,10 @@ export default function Impressum() {
               Streitschlichtung
             </h2>
             <p className="font-body text-noir/70">
-              Die Europäische Kommission stellt eine Plattform zur Online-Streitbeilegung (OS) bereit: 
-              <a 
-                href="https://ec.europa.eu/consumers/odr" 
-                target="_blank" 
+              Die Europäische Kommission stellt eine Plattform zur Online-Streitbeilegung (OS) bereit:
+              <a
+                href="https://ec.europa.eu/consumers/odr"
+                target="_blank"
                 rel="noopener noreferrer"
                 className="text-gold hover:underline ml-1"
               >
@@ -101,7 +91,7 @@ export default function Impressum() {
               </a>
             </p>
             <p className="font-body text-noir/70 mt-4">
-              Wir sind nicht bereit oder verpflichtet, an Streitbeilegungsverfahren vor einer 
+              Ich bin gesetzlich nicht verpflichtet, an Streitbeilegungsverfahren vor einer
               Verbraucherschlichtungsstelle teilzunehmen.
             </p>
           </section>

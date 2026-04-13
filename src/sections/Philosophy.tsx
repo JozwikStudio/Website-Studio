@@ -85,31 +85,34 @@ export default function Philosophy({ isActive = false }: PhilosophyProps) {
       {/* Left text block */}
       <div
         ref={textBlockRef}
-        className="absolute left-[7vw] top-[22vh] w-[34vw] opacity-0"
+        className="absolute left-[7vw] top-[10vh] md:top-[22vh] w-[34vw] opacity-0 z-20 md:z-10"
       >
-        <h2 className="font-display font-light text-display-lg text-ivory mb-6">
-          Präzision
-        </h2>
-        <div
-          ref={goldRuleRef}
-          className="gold-rule w-[6vw] mb-8 origin-left"
-        />
-        <p className="text-body max-w-[44ch]">
-          Ich reduziere auf das Wesentliche. Licht, Haltung, Augenblick. 
-          So entsteht ein Bild, das nicht wirkt—sondern bleibt.
-        </p>
+        <div className="block md:hidden absolute inset-0 bg-noir/40 backdrop-blur-sm rounded-lg -m-3"></div>
+        <div className="relative">
+          <h2 className="font-display font-light text-display-lg text-ivory mb-6">
+            Präzision
+          </h2>
+          <div
+            ref={goldRuleRef}
+            className="gold-rule w-[6vw] mb-8 origin-left"
+          />
+          <p className="text-body max-w-[44ch]">
+            Ich reduziere auf das Wesentliche. Licht, Haltung, Augenblick.
+            So entsteht ein Bild, das nicht wirkt—sondern bleibt.
+          </p>
+        </div>
       </div>
 
       {/* Vertical rule */}
       <div
         ref={verticalRuleRef}
-        className="hairline absolute left-[48vw] top-[14vh] h-[72vh] origin-top"
+        className="hairline absolute left-[50vw] md:left-[48vw] top-[14vh] h-[72vh] origin-top z-10 md:z-20"
       />
 
       {/* Right top image */}
       <div
         ref={topImageRef}
-        className="absolute left-[52vw] top-[10vh] w-[42vw] h-[38vh] image-panel opacity-0"
+        className="absolute left-[52vw] top-[10vh] w-[42vw] h-[38vh] image-panel opacity-0 z-10 md:z-20"
       >
         <img
           src="/images/philosophy_top.jpg"
@@ -121,7 +124,7 @@ export default function Philosophy({ isActive = false }: PhilosophyProps) {
       {/* Right bottom image */}
       <div
         ref={bottomImageRef}
-        className="absolute left-[52vw] top-[52vh] w-[42vw] h-[38vh] image-panel opacity-0"
+        className="absolute left-[52vw] top-[52vh] w-[42vw] h-[38vh] image-panel opacity-0 z-10 md:z-20"
       >
         <img
           src="/images/philosophy_bottom.jpg"
