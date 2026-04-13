@@ -52,7 +52,7 @@ export default function Contact({ isActive = false }: ContactProps) {
     <section
       ref={sectionRef}
       id="kontakt"
-      className="h-full w-full bg-ivory py-[6vh] px-[6vw] overflow-y-auto"
+      className="h-full w-full bg-ivory py-[4vh] px-[4vw] sm:py-[6vh] sm:px-[6vw] overflow-y-auto touch-pan-y"
     >
       {/* Logo */}
       <div className="mb-[6vh]">
@@ -64,13 +64,13 @@ export default function Contact({ isActive = false }: ContactProps) {
         </button>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-[5vw]">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-[5vw]">
         {/* Left column - Info */}
         <div ref={leftColumnRef} className="opacity-0">
-          <h2 className="font-display font-light text-display-md text-noir mb-5">
+          <h2 className="font-display font-light text-display-md text-noir mb-4">
             Ihre Fotos, mein Fokus.
           </h2>
-          <p className="font-body text-lg text-noir/70 max-w-[44ch] mb-8">
+          <p className="font-body text-lg text-noir/70 max-w-[40ch] mb-6">
             Teilen Sie mir Ihre Vision mit – ich antworte persönlich innerhalb von zwei Werktagen.
           </p>
 
@@ -98,9 +98,9 @@ export default function Contact({ isActive = false }: ContactProps) {
         </div>
 
         <div ref={rightColumnRef} className="opacity-0">
-          <div className="space-y-6">
-            <p className="font-body text-lg text-noir/70 max-w-[44ch]">
-              Bitte nutzen Sie direkt die Mailadresse. Beim Klick öffnet sich Ihr Mailprogramm mit einer neuen Nachricht.
+          <div className="space-y-4">
+            <p className="font-body text-base text-noir/70 max-w-[40ch]">
+              Bitte nutzen Sie die Mailadresse – beim Klick öffnet sich Ihr Mailprogramm.
             </p>
             <a
               href="mailto:mail@jozwik-studio.de"
