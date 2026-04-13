@@ -120,11 +120,11 @@ export default function Contact() {
           {/* Contact details */}
           <div className="space-y-6">
             <a
-              href="mailto:hello@jozwikstudio.de"
+              href="mailto:mail@jozwik-studio.de"
               className="flex items-center gap-4 text-noir/80 hover:text-gold transition-colors duration-300"
             >
               <Mail className="w-5 h-5" strokeWidth={1.5} />
-              <span className="font-body">hello@jozwikstudio.de</span>
+              <span className="font-body">mail@jozwik-studio.de</span>
             </a>
             <a
               href="tel:+491234567890"
