@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
 import { Menu, X } from 'lucide-react';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 export default function Navigation() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -17,53 +16,15 @@ export default function Navigation() {
 
   const scrollToSection = (id: string) => {
     setIsMenuOpen(false);
-
-    if (id === 'hero') {
-      window.setTimeout(() => window.scrollTo({ top: 0, behavior: 'auto' }), 40);
-      return;
+    const element = document.getElementById(id);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
     }
-
-    window.setTimeout(() => {
-      const trigger = ScrollTrigger.getById(id);
-      const header = document.querySelector('header');
-      const headerHeight = header ? header.getBoundingClientRect().height : 0;
-      const extraArbeitenOffset = id === 'arbeiten' ? Math.round(window.innerHeight * 0.1) : 0;
-
-      if (trigger && typeof trigger.start === 'number' && typeof trigger.end === 'number') {
-        const stableProgress = 0.6;
-        const targetTop = Math.max(
-          0,
-          Math.round(trigger.start + (trigger.end - trigger.start) * stableProgress) + extraArbeitenOffset
-        );
-        window.requestAnimationFrame(() => {
-          window.scrollTo({ top: targetTop, behavior: 'smooth' });
-        });
-        return;
-      }
-
-      const element = document.getElementById(id);
-      if (!element) return;
-
-      const elementTop = element.getBoundingClientRect().top + window.pageYOffset;
-      const targetTop = Math.max(
-        0,
-        Math.round(elementTop - headerHeight + Math.round(window.innerHeight * 0.7) + extraArbeitenOffset)
-      );
-
-      window.requestAnimationFrame(() => {
-        window.scrollTo({ top: targetTop, behavior: 'smooth' });
-      });
-    }, 40);
   };
 
   const menuItems = [
-    { label: 'Home', id: 'hero' },
-    { label: 'Philosophie', id: 'philosophie' },
     { label: 'Arbeiten', id: 'arbeiten' },
-    { label: 'Kampagnen', id: 'kampagnen' },
-    { label: 'Studio', id: 'studio-sessions' },
-    { label: 'Editorial', id: 'editorial' },
-    { label: 'Portraits', id: 'portraits' },
+    { label: 'Leistungen', id: 'kampagnen' },
     { label: 'Kontakt', id: 'kontakt' },
   ];
 
@@ -84,7 +45,7 @@ export default function Navigation() {
             className="inline-flex items-center gap-3"
             onClick={(e) => {
               e.preventDefault();
-              window.scrollTo({ top: 0, behavior: 'auto' });
+              window.scrollTo({ top: 0, behavior: 'smooth' });
             }}
           >
             <img
@@ -168,7 +129,7 @@ export default function Navigation() {
               FOTOGRAFIE · KAMPAGNEN · EDITORIAL
             </span>
             <span className="text-micro text-ivory/40">
-              LEIPZIG
+              BERLIN
             </span>
           </div>
         </div>

@@ -1,24 +1,15 @@
 /* App-specific styles */
 
-/* Smooth scrolling for the entire page is disabled so section snapping can be controlled in JS */
-html {
-  scroll-behavior: auto;
-}
-
-/* Hide scrollbar but keep functionality */
-body::-webkit-scrollbar {
-  width: 0px;
-  background: transparent;
-}
-
-/* Ensure sections stack properly */
-main > section {
-  position: relative;
+/* Disable native scroll - we handle it manually */
+html, body {
+  overflow: hidden;
+  height: 100%;
+  width: 100%;
 }
 
 /* Image panel hover effect */
 .image-panel {
-  transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+  transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1);
 }
 
 .image-panel:hover {
@@ -75,13 +66,13 @@ button[type="submit"]:hover {
   .text-display-lg {
     font-size: clamp(28px, 6vw, 48px) !important;
   }
+  
+  .text-display-md {
+    font-size: clamp(24px, 5vw, 36px) !important;
+  }
 }
 
 @media (max-width: 768px) {
-  .section-pinned {
-    min-height: 100svh;
-  }
-  
   .text-display-xl {
     font-size: clamp(32px, 10vw, 48px) !important;
   }
@@ -90,13 +81,17 @@ button[type="submit"]:hover {
     font-size: clamp(24px, 8vw, 36px) !important;
   }
   
+  .text-display-md {
+    font-size: clamp(22px, 7vw, 32px) !important;
+  }
+  
   /* Stack image panels on mobile */
   .image-panel {
     position: relative !important;
     left: auto !important;
     top: auto !important;
     width: 90vw !important;
-    height: 50vh !important;
+    height: 40vh !important;
     margin: 2vh auto;
   }
 }
@@ -108,6 +103,19 @@ button[type="submit"]:hover {
   }
   
   button[type="submit"]:hover {
+    transform: none;
+  }
+  
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Touch device optimizations */
+@media (pointer: coarse) {
+  .image-panel:hover {
     transform: none;
   }
 }

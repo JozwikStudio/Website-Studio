@@ -1,8 +1,5 @@
 import { useRef, useLayoutEffect } from 'react';
 import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
-
-gsap.registerPlugin(ScrollTrigger);
 
 export default function Hero() {
   const sectionRef = useRef<HTMLElement>(null);
@@ -14,138 +11,61 @@ export default function Hero() {
   const ctaRef = useRef<HTMLAnchorElement>(null);
   const bottomInfoRef = useRef<HTMLDivElement>(null);
 
+  // Initial load animation
   useLayoutEffect(() => {
     const section = sectionRef.current;
     if (!section) return;
 
     const ctx = gsap.context(() => {
-      // Auto-play entrance animation on load
-      const loadTl = gsap.timeline({ defaults: { ease: 'power3.out' } });
+      const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
 
-      // Left image entrance
-      loadTl.fromTo(
+      tl.fromTo(
         leftImageRef.current,
         { opacity: 0, x: '-6vw' },
-        { opacity: 1, x: 0, duration: 0.6 },
+        { opacity: 1, x: 0, duration: 0.8 },
         0
       );
 
-      // Right image entrance
-      loadTl.fromTo(
+      tl.fromTo(
         rightImageRef.current,
         { opacity: 0, x: '6vw' },
-        { opacity: 1, x: 0, duration: 0.6 },
-        0.15
+        { opacity: 1, x: 0, duration: 0.8 },
+        0.2
       );
 
-      // Left headline entrance
-      loadTl.fromTo(
+      tl.fromTo(
         leftHeadlineRef.current,
-        { opacity: 0, y: '6vh' },
-        { opacity: 1, y: 0, duration: 0.6 },
-        0.35
+        { opacity: 0, y: '4vh' },
+        { opacity: 1, y: 0, duration: 0.8 },
+        0.4
       );
 
-      // Right headline entrance
-      loadTl.fromTo(
+      tl.fromTo(
         rightHeadlineRef.current,
-        { opacity: 0, y: '6vh' },
-        { opacity: 1, y: 0, duration: 0.6 },
-        0.5
+        { opacity: 0, y: '4vh' },
+        { opacity: 1, y: 0, duration: 0.8 },
+        0.55
       );
 
-      // Micro labels entrance
-      loadTl.fromTo(
+      tl.fromTo(
         microLabelsRef.current?.children || [],
         { opacity: 0, y: -10 },
-        { opacity: 1, y: 0, duration: 0.4, stagger: 0.1 },
+        { opacity: 1, y: 0, duration: 0.5, stagger: 0.1 },
         0.7
       );
 
-      // CTA entrance
-      loadTl.fromTo(
+      tl.fromTo(
         ctaRef.current,
         { opacity: 0, y: 10 },
-        { opacity: 1, y: 0, duration: 0.4 },
-        0.8
-      );
-
-      // Bottom info entrance
-      loadTl.fromTo(
-        bottomInfoRef.current?.children || [],
-        { opacity: 0, y: 10 },
-        { opacity: 1, y: 0, duration: 0.4, stagger: 0.1 },
+        { opacity: 1, y: 0, duration: 0.5 },
         0.85
       );
 
-      // Scroll-driven exit animation
-      const scrollTl = gsap.timeline({
-        scrollTrigger: {
-          id: section.id,
-          trigger: section,
-          start: 'top top',
-          end: '+=130%',
-          pin: true,
-          scrub: 0.6,
-          onLeaveBack: () => {
-            // Reset all elements to visible when scrolling back to top
-            gsap.set([leftImageRef.current, rightImageRef.current], { opacity: 1, x: 0 });
-            gsap.set([leftHeadlineRef.current, rightHeadlineRef.current], { opacity: 1, x: 0 });
-            gsap.set(microLabelsRef.current?.children || [], { opacity: 1 });
-            gsap.set(ctaRef.current, { opacity: 1 });
-            gsap.set(bottomInfoRef.current?.children || [], { opacity: 1 });
-          },
-        },
-      });
-
-      // EXIT phase (70% - 100%)
-      scrollTl.fromTo(
-        leftHeadlineRef.current,
-        { x: 0, opacity: 1 },
-        { x: '-18vw', opacity: 0, ease: 'power2.in' },
-        0.7
-      );
-
-      scrollTl.fromTo(
-        rightHeadlineRef.current,
-        { x: 0, opacity: 1 },
-        { x: '18vw', opacity: 0, ease: 'power2.in' },
-        0.7
-      );
-
-      scrollTl.fromTo(
-        leftImageRef.current,
-        { x: 0, opacity: 1 },
-        { x: '-10vw', opacity: 0, ease: 'power2.in' },
-        0.75
-      );
-
-      scrollTl.fromTo(
-        rightImageRef.current,
-        { x: 0, opacity: 1 },
-        { x: '10vw', opacity: 0, ease: 'power2.in' },
-        0.75
-      );
-
-      scrollTl.fromTo(
-        microLabelsRef.current?.children || [],
-        { opacity: 1 },
-        { opacity: 0, ease: 'power2.in' },
-        0.8
-      );
-
-      scrollTl.fromTo(
-        ctaRef.current,
-        { opacity: 1 },
-        { opacity: 0, ease: 'power2.in' },
-        0.8
-      );
-
-      scrollTl.fromTo(
+      tl.fromTo(
         bottomInfoRef.current?.children || [],
-        { opacity: 1 },
-        { opacity: 0, ease: 'power2.in' },
-        0.85
+        { opacity: 0, y: 10 },
+        { opacity: 1, y: 0, duration: 0.5, stagger: 0.1 },
+        0.9
       );
     }, section);
 
@@ -155,8 +75,7 @@ export default function Hero() {
   return (
     <section
       ref={sectionRef}
-      id="hero"
-      className="section-pinned bg-noir flex items-center justify-center z-10"
+      className="h-full w-full bg-noir flex items-center justify-center relative"
     >
       {/* Micro labels */}
       <div ref={microLabelsRef} className="absolute inset-0 pointer-events-none">
@@ -171,7 +90,7 @@ export default function Hero() {
       {/* Left image panel */}
       <div
         ref={leftImageRef}
-        className="absolute left-[6vw] top-[10vh] w-[42vw] h-[80vh] image-panel will-change-transform"
+        className="absolute left-[6vw] top-[10vh] w-[42vw] h-[80vh] image-panel"
       >
         <img
           src="/images/hero_left.jpg"
@@ -183,7 +102,7 @@ export default function Hero() {
       {/* Right image panel */}
       <div
         ref={rightImageRef}
-        className="absolute left-[56vw] top-[10vh] w-[38vw] h-[80vh] image-panel will-change-transform"
+        className="absolute left-[56vw] top-[10vh] w-[38vw] h-[80vh] image-panel"
       >
         <img
           src="/images/hero_right.jpg"
@@ -195,7 +114,7 @@ export default function Hero() {
       {/* Left headline */}
       <h1
         ref={leftHeadlineRef}
-        className="absolute left-[4vw] top-[18vh] font-display font-light text-display-xl text-ivory/95 will-change-transform z-20"
+        className="absolute left-[4vw] top-[18vh] font-display font-light text-display-xl text-ivory/95 z-20"
       >
         Józwik
       </h1>
@@ -203,7 +122,7 @@ export default function Hero() {
       {/* Right headline */}
       <h1
         ref={rightHeadlineRef}
-        className="absolute left-[62vw] top-[62vh] font-display font-light text-display-xl text-ivory/95 will-change-transform z-20"
+        className="absolute left-[62vw] top-[62vh] font-display font-light text-display-xl text-ivory/95 z-20"
       >
         Studio
       </h1>

@@ -1,10 +1,11 @@
-import { useRef, useLayoutEffect } from 'react';
+import { useRef, useEffect } from 'react';
 import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
-gsap.registerPlugin(ScrollTrigger);
+interface StudioSessionsProps {
+  isActive?: boolean;
+}
 
-export default function StudioSessions() {
+export default function StudioSessions({ isActive = false }: StudioSessionsProps) {
   const sectionRef = useRef<HTMLElement>(null);
   const bgImageRef = useRef<HTMLDivElement>(null);
   const headlineRef = useRef<HTMLHeadingElement>(null);
@@ -12,101 +13,63 @@ export default function StudioSessions() {
   const microLabelRef = useRef<HTMLSpanElement>(null);
   const bottomInfoRef = useRef<HTMLSpanElement>(null);
 
-  useLayoutEffect(() => {
+  useEffect(() => {
+    if (!isActive) return;
+    
     const section = sectionRef.current;
     if (!section) return;
-
+    
     const ctx = gsap.context(() => {
-      const scrollTl = gsap.timeline({
-        scrollTrigger: {
-          id: section.id,
-          trigger: section,
-          start: 'top top',
-          end: '+=130%',
-          pin: true,
-          scrub: 0.6,
-        },
-      });
+      const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
 
-      // ENTRANCE phase (0% - 30%)
-      // Background image scale and fade
-      scrollTl.fromTo(
+      tl.fromTo(
         bgImageRef.current,
-        { scale: 1.08, opacity: 0 },
-        { scale: 1, opacity: 1, ease: 'none' },
+        { scale: 1.04, opacity: 0 },
+        { scale: 1, opacity: 1, duration: 0.8 },
         0
       );
 
-      // Headline from right
-      scrollTl.fromTo(
+      tl.fromTo(
         headlineRef.current,
-        { x: '50vw', opacity: 0 },
-        { x: 0, opacity: 1, ease: 'none' },
-        0.1
+        { x: '30vw', opacity: 0 },
+        { x: 0, opacity: 1, duration: 0.7 },
+        0.2
       );
 
-      // Subheadline from right
-      scrollTl.fromTo(
+      tl.fromTo(
         subheadlineRef.current,
-        { x: '50vw', opacity: 0 },
-        { x: 0, opacity: 1, ease: 'none' },
-        0.14
+        { x: '30vw', opacity: 0 },
+        { x: 0, opacity: 1, duration: 0.7 },
+        0.3
       );
 
-      // Micro label fade in
-      scrollTl.fromTo(
+      tl.fromTo(
         microLabelRef.current,
         { opacity: 0 },
-        { opacity: 1, ease: 'none' },
-        0.18
+        { opacity: 1, duration: 0.4 },
+        0.35
       );
 
-      // Bottom info fade in
-      scrollTl.fromTo(
+      tl.fromTo(
         bottomInfoRef.current,
         { opacity: 0 },
-        { opacity: 1, ease: 'none' },
-        0.22
-      );
-
-      // SETTLE phase (30% - 70%) - static
-
-      // EXIT phase (70% - 100%)
-      scrollTl.fromTo(
-        [headlineRef.current, subheadlineRef.current],
-        { x: 0, opacity: 1 },
-        { x: '18vw', opacity: 0, ease: 'power2.in' },
-        0.7
-      );
-
-      scrollTl.fromTo(
-        bgImageRef.current,
-        { opacity: 1 },
-        { opacity: 0, ease: 'power2.in' },
-        0.75
-      );
-
-      scrollTl.fromTo(
-        [microLabelRef.current, bottomInfoRef.current],
-        { opacity: 1 },
-        { opacity: 0, ease: 'power2.in' },
-        0.8
+        { opacity: 1, duration: 0.4 },
+        0.4
       );
     }, section);
 
     return () => ctx.revert();
-  }, []);
+  }, [isActive]);
 
   return (
     <section
       ref={sectionRef}
-      id="studio-sessions"
-      className="section-pinned bg-noir flex items-center justify-center z-50"
+      className="h-full w-full bg-noir flex items-center justify-center relative"
     >
       {/* Micro label */}
       <span
         ref={microLabelRef}
-        className="text-micro text-ivory/60 absolute left-[6vw] top-[7vh]"
+        className="text-micro text-ivory/60 absolute left-[6vw] top-[7vh] opacity-0"
       >
         PORTRAIT
       </span>
@@ -114,7 +77,7 @@ export default function StudioSessions() {
       {/* Full background image */}
       <div
         ref={bgImageRef}
-        className="absolute inset-0 will-change-transform"
+        className="absolute inset-0 opacity-0"
       >
         <img
           src="/images/studio_bg.jpg"
@@ -128,7 +91,7 @@ export default function StudioSessions() {
       {/* Right headline */}
       <h2
         ref={headlineRef}
-        className="absolute right-[6vw] top-[18vh] font-display font-light text-display-xl text-ivory text-right will-change-transform z-20"
+        className="absolute right-[6vw] top-[18vh] font-display font-light text-display-xl text-ivory text-right z-20 opacity-0"
       >
         Studio Sessions
       </h2>
@@ -136,7 +99,7 @@ export default function StudioSessions() {
       {/* Right subheadline */}
       <p
         ref={subheadlineRef}
-        className="absolute right-[6vw] top-[30vh] font-body text-lg text-ivory/80 text-right will-change-transform z-20"
+        className="absolute right-[6vw] top-[30vh] font-body text-lg text-ivory/80 text-right z-20 opacity-0"
       >
         Ruhig. Präzise. Im Detail.
       </p>
@@ -144,7 +107,7 @@ export default function StudioSessions() {
       {/* Bottom right info */}
       <span
         ref={bottomInfoRef}
-        className="text-micro text-ivory/50 absolute right-[6vw] bottom-[6vh]"
+        className="text-micro text-ivory/50 absolute right-[6vw] bottom-[6vh] opacity-0"
       >
         Verfügbar auf Anfrage
       </span>
