@@ -1,27 +1,5 @@
 /* App-specific styles */
 
-:root {
-  --app-height: 100vh;
-}
-
-@supports (height: 100dvh) {
-  :root {
-    --app-height: 100dvh;
-  }
-}
-
-.viewport-screen {
-  height: var(--app-height);
-}
-
-@media (max-width: 768px) {
-  .safe-screen-shell {
-    box-sizing: border-box;
-    padding-top: calc(env(safe-area-inset-top, 0px) + 5vh);
-    padding-bottom: calc(env(safe-area-inset-bottom, 0px) + 10vh);
-  }
-}
-
 /* App-specific wrapper handles native scroll inside the homepage */
 
 /* Image panel hover effect */
