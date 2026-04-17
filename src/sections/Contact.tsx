@@ -1,112 +1,75 @@
-import { useRef, useEffect } from 'react';
-import gsap from 'gsap';
-import { Mail, Phone, MapPin, Instagram } from 'lucide-react';
+import { Instagram } from 'lucide-react';
+import { Link } from 'react-router-dom';
+import { useLanguage } from '../context/LanguageContext';
 
-interface ContactProps {
-  isActive?: boolean;
-}
+export default function Contact() {
+  const { language } = useLanguage();
 
-export default function Contact({ isActive = false }: ContactProps) {
-  const sectionRef = useRef<HTMLElement>(null);
-  const leftColumnRef = useRef<HTMLDivElement>(null);
-  const rightColumnRef = useRef<HTMLDivElement>(null);
-  const footerRef = useRef<HTMLDivElement>(null);
-
-
-  useEffect(() => {
-    if (!isActive) return;
-    
-    const section = sectionRef.current;
-    if (!section) return;
-    
-    const ctx = gsap.context(() => {
-      const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
-
-      tl.fromTo(
-        leftColumnRef.current,
-        { y: 40, opacity: 0 },
-        { y: 0, opacity: 1, duration: 0.7 },
-        0
-      );
-
-      tl.fromTo(
-        rightColumnRef.current,
-        { y: 60, opacity: 0 },
-        { y: 0, opacity: 1, duration: 0.7 },
-        0.15
-      );
-
-      tl.fromTo(
-        footerRef.current,
-        { y: 20, opacity: 0 },
-        { y: 0, opacity: 1, duration: 0.5 },
-        0.3
-      );
-    }, section);
-
-    return () => ctx.revert();
-  }, [isActive]);
-
+  const copy = language === 'de'
+    ? {
+        title: 'Anfragen',
+        body: 'Für ausgewählte Marken, Produkte und Editorials begleite ich visuelle Konzeption und Umsetzung.',
+        location: 'Leipzig / weltweit',
+        note: 'Antwort in der Regel innerhalb von 48 Stunden.',
+        cta: 'Kontakt aufnehmen',
+        imprint: 'Impressum',
+        privacy: 'Datenschutz',
+        terms: 'AGB',
+        backToTop: 'Zurück nach oben',
+      }
+    : {
+        title: 'Enquiries',
+        body: 'For selected brands, products and editorials, I support both visual concept and execution.',
+        location: 'Leipzig / worldwide',
+        note: 'Usually replying within 48 hours.',
+        cta: 'Get in touch',
+        imprint: 'Imprint',
+        privacy: 'Privacy',
+        terms: 'Terms',
+        backToTop: 'Back to top',
+      };
 
   return (
     <section
-      ref={sectionRef}
       id="kontakt"
-      className="h-full w-full bg-ivory py-[4vh] px-[4vw] sm:py-[6vh] sm:px-[6vw] overflow-y-auto touch-pan-y"
+      className="relative h-full w-full bg-ivory pt-[16vh] pb-[6vh] px-[4vw] sm:pt-[16vh] sm:pb-[6vh] sm:px-[6vw] overflow-y-auto touch-pan-y"
     >
-      {/* Logo */}
-      <div className="mb-[6vh]">
-        <button className="inline-flex items-center gap-3" onClick={() => window.dispatchEvent(new CustomEvent('scrollToSection', { detail: 'hero' }))}>
-          <img src="/images/logo.png" alt="Józwik Studio" className="w-8 h-8" />
-          <span className="font-display font-medium text-noir text-lg tracking-tight">
-            Józwik Studio
-          </span>
-        </button>
-      </div>
-
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-[5vw]">
+      <div className="grid grid-cols-1 items-start gap-10 lg:grid-cols-[1.2fr_0.8fr] lg:gap-[8vw]">
         {/* Left column - Info */}
-        <div ref={leftColumnRef} className="opacity-0">
+        <div className="max-w-[44rem]">
           <h2 className="font-display font-light text-display-md text-noir mb-4">
-            Ihre Fotos, mein Fokus.
+            {copy.title}
           </h2>
           <p className="font-body text-lg text-noir/70 max-w-[40ch] mb-6">
-            Teilen Sie mir Ihre Vision mit – ich antworte persönlich innerhalb von zwei Werktagen.
+            {copy.body}
           </p>
 
           {/* Contact details */}
-          <div className="space-y-4">
+          <div className="mt-10 space-y-8">
             <a
               href="mailto:mail@jozwik-studio.de"
-              className="flex items-center gap-4 text-noir/80 hover:text-gold transition-colors duration-300"
+              className="inline-block font-body text-[20px] sm:text-[22px] leading-[1.15] tracking-[0.02em] text-noir/90 transition-colors duration-300 hover:text-gold"
             >
-              <Mail className="w-5 h-5" strokeWidth={1.5} />
-              <span className="font-body">mail@jozwik-studio.de</span>
+              mail@jozwik-studio.de
             </a>
-            <a
-              href="tel:+4917657837198"
-              className="flex items-center gap-4 text-noir/80 hover:text-gold transition-colors duration-300"
-            >
-              <Phone className="w-5 h-5" strokeWidth={1.5} />
-              <span className="font-body">0176 5783 71 98</span>
-            </a>
-            <div className="flex items-center gap-4 text-noir/80">
-              <MapPin className="w-5 h-5" strokeWidth={1.5} />
-              <span className="font-body">Leipzig / weltweit</span>
+            <div className="space-y-2">
+              <span className="block font-body text-base text-noir/60">
+                {copy.location}
+              </span>
+              <span className="block font-ui text-[11px] uppercase tracking-[0.22em] text-noir/45">
+                {copy.note}
+              </span>
             </div>
           </div>
         </div>
 
-        <div ref={rightColumnRef} className="opacity-0">
-          <div className="space-y-4">
-            <p className="font-body text-base text-noir/70 max-w-[40ch]">
-              Bitte nutzen Sie die Mailadresse – beim Klick öffnet sich Ihr Mailprogramm.
-            </p>
+        <div className="flex justify-center lg:justify-start">
+          <div className="pt-4 lg:pt-10 lg:pl-[2vw]">
             <a
               href="mailto:mail@jozwik-studio.de"
-              className="inline-flex items-center justify-center w-full bg-noir text-ivory px-8 py-4 font-ui text-sm uppercase tracking-wider hover:bg-gold transition-colors duration-300"
+              className="inline-flex shimmer-button relative mx-auto items-center justify-center w-auto max-w-[20rem] rounded-full border border-noir/20 bg-noir px-6 py-3 text-[11px] font-ui uppercase tracking-[0.28em] text-ivory shadow-[0_12px_35px_rgba(0,0,0,0.16)] transition duration-300 hover:-translate-y-0.5 hover:border-gold/70"
             >
-              Mail schreiben
+              <span className="relative z-10 text-ivory">{copy.cta}</span>
             </a>
           </div>
         </div>
@@ -114,8 +77,7 @@ export default function Contact({ isActive = false }: ContactProps) {
 
       {/* Footer */}
       <footer
-        ref={footerRef}
-        className="mt-[6vh] pt-6 border-t border-noir/10 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 opacity-0"
+        className="mt-[6vh] pt-6 border-t border-noir/10 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4"
       >
         <span className="text-micro text-noir/50">
           © 2026 Józwik Studio
@@ -129,26 +91,33 @@ export default function Contact({ isActive = false }: ContactProps) {
           >
             <Instagram className="w-5 h-5" strokeWidth={1.5} />
           </a>
-          <a
-            href="/impressum"
+          <Link
+            to="/impressum"
             className="text-micro text-noir/60 hover:text-gold transition-colors duration-300"
           >
-            Impressum
-          </a>
-          <a
-            href="/datenschutz"
+            {copy.imprint}
+          </Link>
+          <Link
+            to="/datenschutz"
             className="text-micro text-noir/60 hover:text-gold transition-colors duration-300"
           >
-            Datenschutz
-          </a>
-          <a
-            href="/agb"
+            {copy.privacy}
+          </Link>
+          <Link
+            to="/agb"
             className="text-micro text-noir/60 hover:text-gold transition-colors duration-300"
           >
-            AGB
-          </a>
+            {copy.terms}
+          </Link>
         </div>
       </footer>
+      <button
+        onClick={() => window.dispatchEvent(new CustomEvent('scrollToSection', { detail: 'visual' }))}
+        className="up-arrow-container absolute inset-x-0 bottom-8 flex justify-center"
+        aria-label={copy.backToTop}
+      >
+        <span className="up-arrow" aria-hidden="true"></span>
+      </button>
     </section>
   );
 }

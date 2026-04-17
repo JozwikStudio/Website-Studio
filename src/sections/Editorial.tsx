@@ -1,5 +1,6 @@
 import { useRef, useEffect } from 'react';
 import gsap from 'gsap';
+import { useLanguage } from '../context/LanguageContext';
 
 interface EditorialProps {
   isActive?: boolean;
@@ -12,6 +13,21 @@ export default function Editorial({ isActive = false }: EditorialProps) {
   const leftHeadlineRef = useRef<HTMLHeadingElement>(null);
   const rightHeadlineRef = useRef<HTMLHeadingElement>(null);
   const microLabelsRef = useRef<HTMLDivElement>(null);
+  const { language } = useLanguage();
+
+  const copy = language === 'de'
+    ? {
+        leftLabel: 'PUBLIKATIONEN',
+        rightLabel: 'TEXTUR · RAUM',
+        leftTitle: 'Editorial',
+        rightTitle: 'für Magazine',
+      }
+    : {
+        leftLabel: 'PUBLICATIONS',
+        rightLabel: 'TEXTURE · SPACE',
+        leftTitle: 'Editorial',
+        rightTitle: 'for magazines',
+      };
 
   useEffect(() => {
     if (!isActive) return;
@@ -68,11 +84,11 @@ export default function Editorial({ isActive = false }: EditorialProps) {
     >
       {/* Micro labels */}
       <div ref={microLabelsRef} className="absolute inset-0 pointer-events-none">
-        <span className="text-micro text-ivory/60 absolute left-[6vw] top-[7vh] opacity-0">
-          PUBLIKATIONEN
+        <span className="font-body text-micro tracking-[0.18em] uppercase text-ivory/80 drop-shadow-[0_3px_12px_rgba(0,0,0,0.8)] absolute left-[6vw] top-[7vh] opacity-0">
+          {copy.leftLabel}
         </span>
-        <span className="text-micro text-ivory/60 absolute right-[6vw] top-[7vh] opacity-0">
-          TEXTUR · RAUM
+        <span className="font-body text-micro tracking-[0.18em] uppercase text-ivory/80 drop-shadow-[0_3px_12px_rgba(0,0,0,0.8)] absolute right-[6vw] top-[7vh] opacity-0">
+          {copy.rightLabel}
         </span>
       </div>
 
@@ -103,17 +119,17 @@ export default function Editorial({ isActive = false }: EditorialProps) {
       {/* Left headline */}
       <h2
         ref={leftHeadlineRef}
-        className="absolute left-[4vw] top-[18vh] font-display font-light text-display-xl text-ivory/95 z-20 opacity-0"
+        className="absolute left-[4vw] top-[18vh] font-body font-light uppercase tracking-[0.08em] text-display-xl text-ivory/95 drop-shadow-[0_4px_18px_rgba(0,0,0,0.82)] z-20 opacity-0"
       >
-        Editorial
+        {copy.leftTitle}
       </h2>
 
       {/* Right headline */}
       <h2
         ref={rightHeadlineRef}
-        className="absolute right-[6vw] top-[62vh] font-display font-light text-display-xl text-right text-ivory/95 z-20 opacity-0"
+        className="absolute right-[6vw] top-[62vh] font-body font-light uppercase tracking-[0.08em] text-display-xl text-right text-ivory/95 drop-shadow-[0_4px_18px_rgba(0,0,0,0.82)] z-20 opacity-0"
       >
-        für Magazine
+        {copy.rightTitle}
       </h2>
     </section>
   );

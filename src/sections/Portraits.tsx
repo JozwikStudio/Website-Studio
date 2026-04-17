@@ -1,5 +1,6 @@
 import { useRef, useEffect } from 'react';
 import gsap from 'gsap';
+import { useLanguage } from '../context/LanguageContext';
 
 interface PortraitsProps {
   isActive?: boolean;
@@ -12,6 +13,21 @@ export default function Portraits({ isActive = false }: PortraitsProps) {
   const subheadlineRef = useRef<HTMLParagraphElement>(null);
   const microLabelRef = useRef<HTMLSpanElement>(null);
   const bottomInfoRef = useRef<HTMLSpanElement>(null);
+  const { language } = useLanguage();
+
+  const copy = language === 'de'
+    ? {
+        label: 'MENSCHEN',
+        title: 'Portraits',
+        subtitle: 'Charakter vor Kamera.',
+        info: 'Buchung per Mail',
+      }
+    : {
+        label: 'PEOPLE',
+        title: 'Portraits',
+        subtitle: 'Character in front of the camera.',
+        info: 'Booking by email',
+      };
 
   useEffect(() => {
     if (!isActive) return;
@@ -69,9 +85,9 @@ export default function Portraits({ isActive = false }: PortraitsProps) {
       {/* Micro label */}
       <span
         ref={microLabelRef}
-        className="text-micro text-ivory/60 absolute left-[6vw] top-[7vh] opacity-0"
+        className="text-micro text-ivory/80 drop-shadow-[0_3px_12px_rgba(0,0,0,0.8)] absolute left-[6vw] top-[7vh] opacity-0"
       >
-        MENSCHEN
+        {copy.label}
       </span>
 
       {/* Full background image */}
@@ -92,25 +108,25 @@ export default function Portraits({ isActive = false }: PortraitsProps) {
       {/* Right headline */}
       <h2
         ref={headlineRef}
-        className="absolute right-[6vw] top-[18vh] font-display font-light text-display-xl text-ivory text-right z-20 opacity-0"
+        className="absolute right-[6vw] top-[18vh] font-display font-light text-display-xl text-ivory text-right drop-shadow-[0_4px_18px_rgba(0,0,0,0.82)] z-20 opacity-0"
       >
-        Portraits
+        {copy.title}
       </h2>
 
       {/* Right subheadline */}
       <p
         ref={subheadlineRef}
-        className="absolute right-[6vw] top-[30vh] font-body text-lg text-ivory/80 text-right z-20 opacity-0"
+        className="absolute right-[6vw] top-[30vh] font-body text-lg text-ivory/90 text-right drop-shadow-[0_3px_14px_rgba(0,0,0,0.82)] z-20 opacity-0"
       >
-        Charakter vor Kamera.
+        {copy.subtitle}
       </p>
 
       {/* Bottom right info */}
       <span
         ref={bottomInfoRef}
-        className="text-micro text-ivory/50 absolute right-[6vw] bottom-[6vh] opacity-0"
+        className="text-micro text-ivory/70 drop-shadow-[0_3px_12px_rgba(0,0,0,0.8)] absolute right-[6vw] bottom-[6vh] opacity-0"
       >
-        Buchung per Mail
+        {copy.info}
       </span>
     </section>
   );

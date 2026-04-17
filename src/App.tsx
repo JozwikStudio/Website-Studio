@@ -3,9 +3,11 @@ import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 import Navigation from './components/Navigation';
+import VisualLeadership from './sections/VisualLeadership';
 import Hero from './sections/Hero';
-import Philosophy from './sections/Philosophy';
 import Gallery from './sections/Gallery';
+// About section temporarily disabled until a new portrait is ready
+// import Philosophy from './sections/Philosophy';
 import Campaigns from './sections/Campaigns';
 import StudioSessions from './sections/StudioSessions';
 import Editorial from './sections/Editorial';
@@ -20,7 +22,7 @@ function App() {
   const [currentSection, setCurrentSection] = useState(0);
   const isAnimating = useRef(false);
   const touchStartY = useRef(0);
-  const sections = ['hero', 'philosophy', 'arbeiten', 'kampagnen', 'studio', 'editorial', 'portraits', 'kontakt'];
+  const sections = ['visual', 'hero', 'arbeiten', 'kampagnen', 'studio', 'editorial', 'portraits', 'kontakt'];
   const animationDuration = 2400;
   const scrollLockDuration = 300;
 
@@ -45,8 +47,8 @@ function App() {
       
       const delta = e.deltaY;
       
-      // Very sensitive threshold
-      if (Math.abs(delta) > 5) {
+      // Slightly higher threshold for a calmer, more controlled feel
+      if (Math.abs(delta) > 32) {
         isAnimating.current = true;
         
         if (delta > 0 && currentSection < sections.length - 1) {
@@ -73,8 +75,8 @@ function App() {
       
       const deltaY = touchStartY.current - e.changedTouches[0].clientY;
       
-      // Very sensitive threshold for touch
-      if (Math.abs(deltaY) > 20) {
+      // Slightly higher threshold for touch to avoid accidental jumps
+      if (Math.abs(deltaY) > 36) {
         isAnimating.current = true;
         
         if (deltaY > 0 && currentSection < sections.length - 1) {
@@ -132,13 +134,23 @@ function App() {
 
   return (
     <div className="relative bg-noir h-screen w-screen overflow-hidden">
-
       {/* Navigation */}
       <Navigation />
 
+      <div
+        className="absolute inset-0 pointer-events-none z-0 transition-opacity"
+        style={{
+          opacity: currentSection <= 1 ? 1 : 0,
+          transition: `opacity ${animationDuration}ms cubic-bezier(0.22, 1, 0.36, 1)`,
+        }}
+      >
+        <div className="absolute inset-0 pointer-events-none spotlight-ambient" />
+        <div className="absolute inset-0 pointer-events-none spotlight-beam" />
+      </div>
+
       {/* Sections container */}
       <main 
-        className="relative h-full w-full transition-transform ease-[cubic-bezier(0.22,1,0.36,1)]"
+        className="relative z-10 h-full w-full transition-transform"
         style={{
           transform: `translateY(-${currentSection * 100}vh)`,
           transitionDuration: `${animationDuration}ms`,
@@ -146,14 +158,15 @@ function App() {
         }}
       >
         <div className="h-screen w-screen">
-          <Hero />
+          <VisualLeadership />
         </div>
         <div className="h-screen w-screen">
-          <Philosophy isActive={currentSection === 1} />
+          <Hero isActive={currentSection === 1} />
         </div>
         <div className="h-screen w-screen">
           <Gallery isActive={currentSection === 2} />
         </div>
+        {/* About section temporarily disabled until the updated portrait is ready */}
         <div className="h-screen w-screen">
           <Campaigns isActive={currentSection === 3} />
         </div>
@@ -167,7 +180,7 @@ function App() {
           <Portraits isActive={currentSection === 6} />
         </div>
         <div className="h-screen w-screen">
-          <Contact isActive={currentSection === 7} />
+          <Contact />
         </div>
       </main>
 

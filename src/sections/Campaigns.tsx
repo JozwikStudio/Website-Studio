@@ -1,5 +1,6 @@
 import { useRef, useEffect } from 'react';
 import gsap from 'gsap';
+import { useLanguage } from '../context/LanguageContext';
 
 interface CampaignsProps {
   isActive?: boolean;
@@ -12,6 +13,21 @@ export default function Campaigns({ isActive = false }: CampaignsProps) {
   const leftHeadlineRef = useRef<HTMLHeadingElement>(null);
   const rightHeadlineRef = useRef<HTMLHeadingElement>(null);
   const microLabelsRef = useRef<HTMLDivElement>(null);
+  const { language } = useLanguage();
+
+  const copy = language === 'de'
+    ? {
+        leftLabel: 'KOMMERZIELL',
+        rightLabel: 'STIL · KLARHEIT',
+        leftTitle: 'Kampagnen',
+        rightTitle: 'mit Haltung',
+      }
+    : {
+        leftLabel: 'COMMERCIAL',
+        rightLabel: 'STYLE · CLARITY',
+        leftTitle: 'Campaigns',
+        rightTitle: 'with intent',
+      };
 
   useEffect(() => {
     if (!isActive) return;
@@ -69,11 +85,11 @@ export default function Campaigns({ isActive = false }: CampaignsProps) {
     >
       {/* Micro labels */}
       <div ref={microLabelsRef} className="absolute inset-0 pointer-events-none">
-        <span className="text-micro text-ivory/60 absolute left-[6vw] top-[7vh] opacity-0">
-          KOMMERZIELL
+        <span className="font-body text-micro tracking-[0.18em] uppercase text-ivory/80 drop-shadow-[0_3px_12px_rgba(0,0,0,0.8)] absolute left-[6vw] top-[7vh] opacity-0">
+          {copy.leftLabel}
         </span>
-        <span className="text-micro text-ivory/60 absolute right-[6vw] top-[7vh] opacity-0">
-          STIL · KLARHEIT
+        <span className="font-body text-micro tracking-[0.18em] uppercase text-ivory/80 drop-shadow-[0_3px_12px_rgba(0,0,0,0.8)] absolute right-[6vw] top-[7vh] opacity-0">
+          {copy.rightLabel}
         </span>
       </div>
 
@@ -104,17 +120,17 @@ export default function Campaigns({ isActive = false }: CampaignsProps) {
       {/* Left headline */}
       <h2
         ref={leftHeadlineRef}
-        className="absolute left-[4vw] top-[18vh] font-display font-light text-display-xl text-ivory/95 z-20 opacity-0"
+        className="absolute left-[4vw] top-[18vh] max-w-[70vw] font-body text-[12vw] font-light uppercase leading-[0.92] tracking-[0.06em] text-ivory/95 drop-shadow-[0_4px_18px_rgba(0,0,0,0.82)] z-20 opacity-0 sm:max-w-none sm:text-display-xl sm:tracking-[0.08em]"
       >
-        Kampagnen
+        {copy.leftTitle}
       </h2>
 
       {/* Right headline */}
       <h2
         ref={rightHeadlineRef}
-        className="absolute left-[58vw] top-[62vh] font-display font-light text-display-xl text-ivory/95 z-20 opacity-0"
+        className="absolute right-[4vw] top-[60vh] max-w-[56vw] text-right font-body text-[10.5vw] font-light uppercase leading-[0.92] tracking-[0.06em] text-ivory/95 drop-shadow-[0_4px_18px_rgba(0,0,0,0.82)] z-20 opacity-0 sm:right-auto sm:left-[58vw] sm:top-[62vh] sm:max-w-none sm:text-left sm:text-display-xl sm:tracking-[0.08em]"
       >
-        mit Haltung
+        {copy.rightTitle}
       </h2>
     </section>
   );
