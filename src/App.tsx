@@ -133,7 +133,7 @@ function App() {
   }, [currentSection]);
 
   return (
-    <div className="relative bg-noir h-screen w-screen overflow-hidden">
+    <div className="relative bg-noir viewport-screen w-screen overflow-hidden">
       {/* Navigation */}
       <Navigation />
 
@@ -152,34 +152,34 @@ function App() {
       <main 
         className="relative z-10 h-full w-full transition-transform"
         style={{
-          transform: `translateY(-${currentSection * 100}vh)`,
+          transform: `translateY(-${currentSection * 100}%)`,
           transitionDuration: `${animationDuration}ms`,
           transitionTimingFunction: 'cubic-bezier(0.22, 1, 0.36, 1)',
         }}
       >
-        <div className="h-screen w-screen">
+        <div className="viewport-screen w-screen safe-screen-shell">
           <VisualLeadership />
         </div>
-        <div className="h-screen w-screen">
+        <div className="viewport-screen w-screen safe-screen-shell">
           <Hero isActive={currentSection === 1} />
         </div>
-        <div className="h-screen w-screen">
+        <div className="viewport-screen w-screen safe-screen-shell">
           <Gallery isActive={currentSection === 2} />
         </div>
         {/* About section temporarily disabled until the updated portrait is ready */}
-        <div className="h-screen w-screen">
+        <div className="viewport-screen w-screen safe-screen-shell">
           <Campaigns isActive={currentSection === 3} />
         </div>
-        <div className="h-screen w-screen">
+        <div className="viewport-screen w-screen safe-screen-shell">
           <StudioSessions isActive={currentSection === 4} />
         </div>
-        <div className="h-screen w-screen">
+        <div className="viewport-screen w-screen safe-screen-shell">
           <Editorial isActive={currentSection === 5} />
         </div>
-        <div className="h-screen w-screen">
+        <div className="viewport-screen w-screen safe-screen-shell">
           <Portraits isActive={currentSection === 6} />
         </div>
-        <div className="h-screen w-screen">
+        <div className="viewport-screen w-screen safe-screen-shell">
           <Contact />
         </div>
       </main>
